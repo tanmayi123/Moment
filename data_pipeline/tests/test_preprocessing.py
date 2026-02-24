@@ -10,7 +10,7 @@ import sys
 
 sys.path.append(str(Path(__file__).parent.parent / 'scripts'))
 
-from preprocessing import DataPreprocessor
+from preprocessor import DataPreprocessor
 
 
 class TestDataPreprocessor:

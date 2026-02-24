@@ -1,0 +1,276 @@
+{
+  "timestamp": "2026-02-24T22:22:28.673675",
+  "dataset": "moments",
+  "total_records": 450,
+  "total_fields": 32,
+  "field_names": [
+    "interpretation_id",
+    "user_id",
+    "book_id",
+    "passage_id",
+    "book_title",
+    "passage_number",
+    "character_id",
+    "character_name",
+    "cleaned_interpretation",
+    "original_word_count",
+    "is_valid",
+    "quality_score",
+    "quality_issues",
+    "timestamp",
+    "detected_issues_has_pii",
+    "detected_issues_pii_types",
+    "detected_issues_has_profanity",
+    "detected_issues_profanity_ratio",
+    "detected_issues_is_spam",
+    "detected_issues_spam_reasons",
+    "anomalies_word_count_outlier",
+    "anomalies_readability_outlier",
+    "anomalies_duplicate_risk",
+    "anomalies_duplicate_of",
+    "anomalies_style_mismatch",
+    "anomalies_anomaly_details",
+    "metrics_word_count",
+    "metrics_char_count",
+    "metrics_sentence_count",
+    "metrics_avg_word_length",
+    "metrics_avg_sentence_length",
+    "metrics_readability_score"
+  ],
+  "schema_location": "/opt/airflow/repo/data/schemas/moments_schema.pbtxt",
+  "anomalies": {},
+  "numeric_fields": [
+    "passage_number",
+    "character_id",
+    "original_word_count",
+    "quality_score",
+    "detected_issues_profanity_ratio",
+    "metrics_word_count",
+    "metrics_char_count",
+    "metrics_sentence_count",
+    "metrics_avg_word_length",
+    "metrics_avg_sentence_length",
+    "metrics_readability_score"
+  ],
+  "numeric_statistics": {
+    "passage_number": {
+      "count": 450.0,
+      "mean": 2.0,
+      "std": 0.8174053141871969,
+      "min": 1.0,
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 3.0,
+      "max": 3.0
+    },
+    "character_id": {
+      "count": 450.0,
+      "mean": 25.5,
+      "std": 14.44693076273475,
+      "min": 1.0,
+      "25%": 13.0,
+      "50%": 25.5,
+      "75%": 38.0,
+      "max": 50.0
+    },
+    "original_word_count": {
+      "count": 450.0,
+      "mean": 69.23333333333333,
+      "std": 25.3863904405315,
+      "min": 14.0,
+      "25%": 52.0,
+      "50%": 67.5,
+      "75%": 87.75,
+      "max": 130.0
+    },
+    "quality_score": {
+      "count": 450.0,
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 1.0,
+      "max": 1.0
+    },
+    "detected_issues_profanity_ratio": {
+      "count": 450.0,
+      "mean": 4.755555555555556e-05,
+      "std": 0.0007140684761744993,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 0.0114
+    },
+    "metrics_word_count": {
+      "count": 450.0,
+      "mean": 61.34222222222222,
+      "std": 25.784670165443416,
+      "min": 13.0,
+      "25%": 41.25,
+      "50%": 59.0,
+      "75%": 80.0,
+      "max": 121.0
+    },
+    "metrics_char_count": {
+      "count": 450.0,
+      "mean": 345.8022222222222,
+      "std": 159.77192400751795,
+      "min": 74.0,
+      "25%": 225.5,
+      "50%": 331.5,
+      "75%": 445.0,
+      "max": 774.0
+    },
+    "metrics_sentence_count": {
+      "count": 450.0,
+      "mean": 9.77111111111111,
+      "std": 4.618984848903213,
+      "min": 2.0,
+      "25%": 6.0,
+      "50%": 9.0,
+      "75%": 12.0,
+      "max": 27.0
+    },
+    "metrics_avg_word_length": {
+      "count": 450.0,
+      "mean": 5.2231555555555556,
+      "std": 0.5704296804094322,
+      "min": 4.08,
+      "25%": 4.79,
+      "50%": 5.17,
+      "75%": 5.6,
+      "max": 7.54
+    },
+    "metrics_avg_sentence_length": {
+      "count": 450.0,
+      "mean": 6.805,
+      "std": 2.616537031198822,
+      "min": 2.4,
+      "25%": 4.8875,
+      "50%": 6.2,
+      "75%": 8.575,
+      "max": 17.2
+    },
+    "metrics_readability_score": {
+      "count": 450.0,
+      "mean": 58.76551111111112,
+      "std": 18.445189939949433,
+      "min": 0.0,
+      "25%": 47.0275,
+      "50%": 61.375,
+      "75%": 73.17,
+      "max": 100.0
+    }
+  },
+  "categorical_fields": [
+    "interpretation_id",
+    "user_id",
+    "book_id",
+    "passage_id",
+    "book_title",
+    "character_name",
+    "cleaned_interpretation",
+    "is_valid",
+    "quality_issues",
+    "timestamp",
+    "detected_issues_has_pii",
+    "detected_issues_pii_types",
+    "detected_issues_has_profanity",
+    "detected_issues_is_spam",
+    "detected_issues_spam_reasons",
+    "anomalies_word_count_outlier",
+    "anomalies_readability_outlier",
+    "anomalies_duplicate_risk",
+    "anomalies_duplicate_of",
+    "anomalies_style_mismatch",
+    "anomalies_anomaly_details"
+  ],
+  "categorical_summary": {
+    "interpretation_id": {
+      "unique_values": 450,
+      "most_common": "moment_002330fc"
+    },
+    "user_id": {
+      "unique_values": 50,
+      "most_common": "user_aisha_thompson_d4d810ea"
+    },
+    "book_id": {
+      "unique_values": 3,
+      "most_common": "gutenberg_1342"
+    },
+    "passage_id": {
+      "unique_values": 9,
+      "most_common": "gutenberg_1342_passage_1"
+    },
+    "book_title": {
+      "unique_values": 3,
+      "most_common": "Frankenstein"
+    },
+    "character_name": {
+      "unique_values": 50,
+      "most_common": "Aisha Thompson"
+    },
+    "cleaned_interpretation": {
+      "unique_values": 450,
+      "most_common": "\"Accomplishment of my toils\" immediately followed by \"catastrophe.\" Success and failure in the same breath. That's the whole book right there.\n\nHe describes \"anxiety that almost amounted to agony\" before the creature even lives. Why is success painful? Because he knows this is wrong. His body's telling him to stop and he ignores it.\n\n\"Infinite pains and care I had endeavoured to form.\" Passive construction. \"Endeavoured to form\" not \"created\" or \"made.\" Distancing language. He's already separating himself from responsibility.\n\nYellow skin barely covering muscles and arteries. Sounds like he didn't finish properly. Like he rushed at the end and now he's disgusted by his own sloppy work. Blaming the creature for his failures."
+    },
+    "is_valid": {
+      "unique_values": 1,
+      "most_common": "True"
+    },
+    "quality_issues": {
+      "unique_values": 1,
+      "most_common": ""
+    },
+    "timestamp": {
+      "unique_values": 1,
+      "most_common": "2026-02-24T22:22:19"
+    },
+    "detected_issues_has_pii": {
+      "unique_values": 1,
+      "most_common": "False"
+    },
+    "detected_issues_pii_types": {
+      "unique_values": 1,
+      "most_common": "[]"
+    },
+    "detected_issues_has_profanity": {
+      "unique_values": 1,
+      "most_common": "False"
+    },
+    "detected_issues_is_spam": {
+      "unique_values": 1,
+      "most_common": "False"
+    },
+    "detected_issues_spam_reasons": {
+      "unique_values": 1,
+      "most_common": "[]"
+    },
+    "anomalies_word_count_outlier": {
+      "unique_values": 1,
+      "most_common": "False"
+    },
+    "anomalies_readability_outlier": {
+      "unique_values": 2,
+      "most_common": "False"
+    },
+    "anomalies_duplicate_risk": {
+      "unique_values": 2,
+      "most_common": "False"
+    },
+    "anomalies_duplicate_of": {
+      "unique_values": 2,
+      "most_common": "moment_28641dbb"
+    },
+    "anomalies_style_mismatch": {
+      "unique_values": 2,
+      "most_common": "False"
+    },
+    "anomalies_anomaly_details": {
+      "unique_values": 29,
+      "most_common": "[]"
+    }
+  }
+}

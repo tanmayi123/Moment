@@ -5,19 +5,16 @@
 # Run with: pytest test_pipeline.py -v
 # ============================================================
 
-import pytest # type: ignore
 import sys
 import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 
-# make sure pipeline package is importable
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from pipeline.preprocessor import (
+from preprocessor import (
     clean_text, validate_text, detect_issues,
     calculate_metrics, make_book_id, make_passage_id,
     make_user_id, make_interpretation_id
 )
-from pipeline.anomalies import (
+from anomalies import (
     _iqr_bounds, _mean_std, _check_wc_outlier,
     _check_read_outlier, _check_style_mismatch, detect_anomalies
 )

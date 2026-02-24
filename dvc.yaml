@@ -1,0 +1,33 @@
+# MOMENT DVC Pipeline
+stages:
+  acquire_data:
+    cmd: python data_pipeline/scripts/data_acquisition.py
+    deps:
+      - data_pipeline/scripts/data_acquisition.py
+      - data_pipeline/config/config.yaml
+    outs:
+      - data/raw/user_interpretations.json
+      - data/raw/passage_details.csv
+      - data/raw/user_data.csv
+
+  bias_detection:
+    cmd: python data_pipeline/scripts/bias_detection.py
+    deps:
+      - data/raw/user_interpretations.json
+      - data/raw/user_data.csv
+      - data_pipeline/scripts/bias_detection.py
+    outs:
+      - data/reports/bias_report_FINAL.md
+
+  preprocessing:
+    cmd: python data_pipeline/scripts/run.py --config data_pipeline/config/config.yaml
+    deps:
+      - data/raw/user_interpretations.json
+      - data/raw/passage_details.csv
+      - data/raw/user_data.csv
+      - data_pipeline/scripts/preprocessor.py
+      - data_pipeline/scripts/anomalies.py
+    outs:
+      - data/processed/moments_processed.json
+      - data/processed/books_processed.json
+      - data/processed/users_processed.json

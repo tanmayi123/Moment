@@ -1,0 +1,599 @@
+{
+  "generated_at": "2026-02-24T23:09:54.852512",
+  "datasets": {
+    "moments": {
+      "timestamp": "2026-02-24T23:09:55.030387",
+      "dataset": "moments",
+      "total_records": 450,
+      "total_fields": 32,
+      "field_names": [
+        "interpretation_id",
+        "user_id",
+        "book_id",
+        "passage_id",
+        "book_title",
+        "passage_number",
+        "character_id",
+        "character_name",
+        "cleaned_interpretation",
+        "original_word_count",
+        "is_valid",
+        "quality_score",
+        "quality_issues",
+        "timestamp",
+        "detected_issues_has_pii",
+        "detected_issues_pii_types",
+        "detected_issues_has_profanity",
+        "detected_issues_profanity_ratio",
+        "detected_issues_is_spam",
+        "detected_issues_spam_reasons",
+        "anomalies_word_count_outlier",
+        "anomalies_readability_outlier",
+        "anomalies_duplicate_risk",
+        "anomalies_duplicate_of",
+        "anomalies_style_mismatch",
+        "anomalies_anomaly_details",
+        "metrics_word_count",
+        "metrics_char_count",
+        "metrics_sentence_count",
+        "metrics_avg_word_length",
+        "metrics_avg_sentence_length",
+        "metrics_readability_score"
+      ],
+      "schema_location": "/opt/airflow/repo/data/schemas/moments_schema.pbtxt",
+      "anomalies": {},
+      "numeric_fields": [
+        "passage_number",
+        "character_id",
+        "original_word_count",
+        "quality_score",
+        "detected_issues_profanity_ratio",
+        "metrics_word_count",
+        "metrics_char_count",
+        "metrics_sentence_count",
+        "metrics_avg_word_length",
+        "metrics_avg_sentence_length",
+        "metrics_readability_score"
+      ],
+      "numeric_statistics": {
+        "passage_number": {
+          "count": 450.0,
+          "mean": 2.0,
+          "std": 0.8174053141871969,
+          "min": 1.0,
+          "25%": 1.0,
+          "50%": 2.0,
+          "75%": 3.0,
+          "max": 3.0
+        },
+        "character_id": {
+          "count": 450.0,
+          "mean": 25.5,
+          "std": 14.44693076273475,
+          "min": 1.0,
+          "25%": 13.0,
+          "50%": 25.5,
+          "75%": 38.0,
+          "max": 50.0
+        },
+        "original_word_count": {
+          "count": 450.0,
+          "mean": 69.23333333333333,
+          "std": 25.3863904405315,
+          "min": 14.0,
+          "25%": 52.0,
+          "50%": 67.5,
+          "75%": 87.75,
+          "max": 130.0
+        },
+        "quality_score": {
+          "count": 450.0,
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 1.0,
+          "max": 1.0
+        },
+        "detected_issues_profanity_ratio": {
+          "count": 450.0,
+          "mean": 4.755555555555556e-05,
+          "std": 0.0007140684761744993,
+          "min": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "max": 0.0114
+        },
+        "metrics_word_count": {
+          "count": 450.0,
+          "mean": 61.34222222222222,
+          "std": 25.784670165443416,
+          "min": 13.0,
+          "25%": 41.25,
+          "50%": 59.0,
+          "75%": 80.0,
+          "max": 121.0
+        },
+        "metrics_char_count": {
+          "count": 450.0,
+          "mean": 345.8022222222222,
+          "std": 159.77192400751795,
+          "min": 74.0,
+          "25%": 225.5,
+          "50%": 331.5,
+          "75%": 445.0,
+          "max": 774.0
+        },
+        "metrics_sentence_count": {
+          "count": 450.0,
+          "mean": 9.77111111111111,
+          "std": 4.618984848903213,
+          "min": 2.0,
+          "25%": 6.0,
+          "50%": 9.0,
+          "75%": 12.0,
+          "max": 27.0
+        },
+        "metrics_avg_word_length": {
+          "count": 450.0,
+          "mean": 5.2231555555555556,
+          "std": 0.5704296804094322,
+          "min": 4.08,
+          "25%": 4.79,
+          "50%": 5.17,
+          "75%": 5.6,
+          "max": 7.54
+        },
+        "metrics_avg_sentence_length": {
+          "count": 450.0,
+          "mean": 6.805,
+          "std": 2.616537031198822,
+          "min": 2.4,
+          "25%": 4.8875,
+          "50%": 6.2,
+          "75%": 8.575,
+          "max": 17.2
+        },
+        "metrics_readability_score": {
+          "count": 450.0,
+          "mean": 58.76551111111112,
+          "std": 18.445189939949433,
+          "min": 0.0,
+          "25%": 47.0275,
+          "50%": 61.375,
+          "75%": 73.17,
+          "max": 100.0
+        }
+      },
+      "categorical_fields": [
+        "interpretation_id",
+        "user_id",
+        "book_id",
+        "passage_id",
+        "book_title",
+        "character_name",
+        "cleaned_interpretation",
+        "is_valid",
+        "quality_issues",
+        "timestamp",
+        "detected_issues_has_pii",
+        "detected_issues_pii_types",
+        "detected_issues_has_profanity",
+        "detected_issues_is_spam",
+        "detected_issues_spam_reasons",
+        "anomalies_word_count_outlier",
+        "anomalies_readability_outlier",
+        "anomalies_duplicate_risk",
+        "anomalies_duplicate_of",
+        "anomalies_style_mismatch",
+        "anomalies_anomaly_details"
+      ],
+      "categorical_summary": {
+        "interpretation_id": {
+          "unique_values": 450,
+          "most_common": "moment_002330fc"
+        },
+        "user_id": {
+          "unique_values": 50,
+          "most_common": "user_aisha_thompson_d4d810ea"
+        },
+        "book_id": {
+          "unique_values": 3,
+          "most_common": "gutenberg_1342"
+        },
+        "passage_id": {
+          "unique_values": 9,
+          "most_common": "gutenberg_1342_passage_1"
+        },
+        "book_title": {
+          "unique_values": 3,
+          "most_common": "Frankenstein"
+        },
+        "character_name": {
+          "unique_values": 50,
+          "most_common": "Aisha Thompson"
+        },
+        "cleaned_interpretation": {
+          "unique_values": 450,
+          "most_common": "\"Accomplishment of my toils\" immediately followed by \"catastrophe.\" Success and failure in the same breath. That's the whole book right there.\n\nHe describes \"anxiety that almost amounted to agony\" before the creature even lives. Why is success painful? Because he knows this is wrong. His body's telling him to stop and he ignores it.\n\n\"Infinite pains and care I had endeavoured to form.\" Passive construction. \"Endeavoured to form\" not \"created\" or \"made.\" Distancing language. He's already separating himself from responsibility.\n\nYellow skin barely covering muscles and arteries. Sounds like he didn't finish properly. Like he rushed at the end and now he's disgusted by his own sloppy work. Blaming the creature for his failures."
+        },
+        "is_valid": {
+          "unique_values": 1,
+          "most_common": "True"
+        },
+        "quality_issues": {
+          "unique_values": 1,
+          "most_common": ""
+        },
+        "timestamp": {
+          "unique_values": 1,
+          "most_common": "2026-02-24T23:09:48"
+        },
+        "detected_issues_has_pii": {
+          "unique_values": 1,
+          "most_common": "False"
+        },
+        "detected_issues_pii_types": {
+          "unique_values": 1,
+          "most_common": "[]"
+        },
+        "detected_issues_has_profanity": {
+          "unique_values": 1,
+          "most_common": "False"
+        },
+        "detected_issues_is_spam": {
+          "unique_values": 1,
+          "most_common": "False"
+        },
+        "detected_issues_spam_reasons": {
+          "unique_values": 1,
+          "most_common": "[]"
+        },
+        "anomalies_word_count_outlier": {
+          "unique_values": 1,
+          "most_common": "False"
+        },
+        "anomalies_readability_outlier": {
+          "unique_values": 2,
+          "most_common": "False"
+        },
+        "anomalies_duplicate_risk": {
+          "unique_values": 2,
+          "most_common": "False"
+        },
+        "anomalies_duplicate_of": {
+          "unique_values": 2,
+          "most_common": "moment_28641dbb"
+        },
+        "anomalies_style_mismatch": {
+          "unique_values": 2,
+          "most_common": "False"
+        },
+        "anomalies_anomaly_details": {
+          "unique_values": 29,
+          "most_common": "[]"
+        }
+      }
+    },
+    "books": {
+      "timestamp": "2026-02-24T23:09:55.114306",
+      "dataset": "books",
+      "total_records": 6,
+      "total_fields": 18,
+      "field_names": [
+        "book_id",
+        "passage_id",
+        "book_title",
+        "book_author",
+        "chapter_number",
+        "passage_title",
+        "passage_number",
+        "cleaned_passage_text",
+        "is_valid",
+        "quality_score",
+        "quality_issues",
+        "timestamp",
+        "metrics_word_count",
+        "metrics_char_count",
+        "metrics_sentence_count",
+        "metrics_avg_word_length",
+        "metrics_avg_sentence_length",
+        "metrics_readability_score"
+      ],
+      "schema_location": "/opt/airflow/repo/data/schemas/books_schema.pbtxt",
+      "anomalies": {},
+      "numeric_fields": [
+        "passage_number",
+        "quality_score",
+        "metrics_word_count",
+        "metrics_char_count",
+        "metrics_sentence_count",
+        "metrics_avg_word_length",
+        "metrics_avg_sentence_length",
+        "metrics_readability_score"
+      ],
+      "numeric_statistics": {
+        "passage_number": {
+          "count": 6.0,
+          "mean": 2.0,
+          "std": 0.8944271909999159,
+          "min": 1.0,
+          "25%": 1.25,
+          "50%": 2.0,
+          "75%": 2.75,
+          "max": 3.0
+        },
+        "quality_score": {
+          "count": 6.0,
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 1.0,
+          "max": 1.0
+        },
+        "metrics_word_count": {
+          "count": 6.0,
+          "mean": 136.5,
+          "std": 52.43948893725033,
+          "min": 63.0,
+          "25%": 100.5,
+          "50%": 147.0,
+          "75%": 167.25,
+          "max": 203.0
+        },
+        "metrics_char_count": {
+          "count": 6.0,
+          "mean": 626.1666666666666,
+          "std": 252.39129673320087,
+          "min": 293.0,
+          "25%": 438.75,
+          "50%": 661.0,
+          "75%": 781.25,
+          "max": 956.0
+        },
+        "metrics_sentence_count": {
+          "count": 6.0,
+          "mean": 6.333333333333333,
+          "std": 1.632993161855452,
+          "min": 3.0,
+          "25%": 7.0,
+          "50%": 7.0,
+          "75%": 7.0,
+          "max": 7.0
+        },
+        "metrics_avg_word_length": {
+          "count": 6.0,
+          "mean": 4.319999999999999,
+          "std": 0.18676188047885997,
+          "min": 4.13,
+          "25%": 4.172499999999999,
+          "50%": 4.275,
+          "75%": 4.475,
+          "max": 4.56
+        },
+        "metrics_avg_sentence_length": {
+          "count": 6.0,
+          "mean": 22.293333333333333,
+          "std": 7.515926201518124,
+          "min": 9.0,
+          "25%": 20.355,
+          "50%": 23.36,
+          "75%": 27.8575,
+          "max": 29.33
+        },
+        "metrics_readability_score": {
+          "count": 6.0,
+          "mean": 65.89333333333333,
+          "std": 12.671196733800114,
+          "min": 49.55,
+          "25%": 57.5975,
+          "50%": 64.515,
+          "75%": 75.5875,
+          "max": 82.21
+        }
+      },
+      "categorical_fields": [
+        "book_id",
+        "passage_id",
+        "book_title",
+        "book_author",
+        "chapter_number",
+        "passage_title",
+        "cleaned_passage_text",
+        "is_valid",
+        "quality_issues",
+        "timestamp"
+      ],
+      "categorical_summary": {
+        "book_id": {
+          "unique_values": 2,
+          "most_common": "gutenberg_64317"
+        },
+        "passage_id": {
+          "unique_values": 6,
+          "most_common": "gutenberg_64317_passage_1"
+        },
+        "book_title": {
+          "unique_values": 2,
+          "most_common": "Frankenstein"
+        },
+        "book_author": {
+          "unique_values": 2,
+          "most_common": "F. Scott (Francis Scott) Fitzgerald"
+        },
+        "chapter_number": {
+          "unique_values": 5,
+          "most_common": "1"
+        },
+        "passage_title": {
+          "unique_values": 6,
+          "most_common": "Boats Against the Current"
+        },
+        "cleaned_passage_text": {
+          "unique_values": 6,
+          "most_common": "\"And as I sat there brooding on the old, unknown world, I thought of Gatsby's wonder when he first picked out the green light at the end of Daisy's dock. He had come a long way to this blue lawn, and his dream must have seemed so close that he could hardly fail to grasp it. He did not know that it was already behind him, somewhere back in that vast obscurity beyond the city, where the dark fields of the republic rolled on under the night. Gatsby believed in the green light, the orgastic future that year by year recedes before us. It eluded us then, but that's no matter--tomorrow we will run faster, stretch out our arms farther... And one fine morning. So we beat on, boats against the current, borne back ceaselessly into the past.\""
+        },
+        "is_valid": {
+          "unique_values": 1,
+          "most_common": "True"
+        },
+        "quality_issues": {
+          "unique_values": 1,
+          "most_common": ""
+        },
+        "timestamp": {
+          "unique_values": 1,
+          "most_common": "2026-02-24T23:09:47"
+        }
+      }
+    },
+    "users": {
+      "timestamp": "2026-02-24T23:09:55.172645",
+      "dataset": "users",
+      "total_records": 50,
+      "total_fields": 17,
+      "field_names": [
+        "user_id",
+        "character_name",
+        "gender",
+        "age",
+        "profession",
+        "distribution_category",
+        "personality",
+        "interest",
+        "reading_intensity",
+        "reading_count",
+        "experience_level",
+        "experience_count",
+        "journey",
+        "reading_styles",
+        "total_interpretations",
+        "books_interpreted",
+        "timestamp"
+      ],
+      "schema_location": "/opt/airflow/repo/data/schemas/users_schema.pbtxt",
+      "anomalies": {},
+      "numeric_fields": [
+        "age",
+        "reading_count",
+        "experience_count",
+        "total_interpretations"
+      ],
+      "numeric_statistics": {
+        "age": {
+          "count": 50.0,
+          "mean": 29.04,
+          "std": 9.940558026466674,
+          "min": 0.0,
+          "25%": 23.25,
+          "50%": 28.0,
+          "75%": 34.75,
+          "max": 49.0
+        },
+        "reading_count": {
+          "count": 50.0,
+          "mean": 20.92,
+          "std": 10.514984448832232,
+          "min": 0.0,
+          "25%": 15.25,
+          "50%": 20.0,
+          "75%": 28.75,
+          "max": 42.0
+        },
+        "experience_count": {
+          "count": 50.0,
+          "mean": 5.86,
+          "std": 4.440123182700118,
+          "min": 0.0,
+          "25%": 2.25,
+          "50%": 5.0,
+          "75%": 8.0,
+          "max": 18.0
+        },
+        "total_interpretations": {
+          "count": 50.0,
+          "mean": 9.0,
+          "std": 0.0,
+          "min": 9.0,
+          "25%": 9.0,
+          "50%": 9.0,
+          "75%": 9.0,
+          "max": 9.0
+        }
+      },
+      "categorical_fields": [
+        "user_id",
+        "character_name",
+        "gender",
+        "profession",
+        "distribution_category",
+        "personality",
+        "interest",
+        "reading_intensity",
+        "experience_level",
+        "journey",
+        "reading_styles",
+        "books_interpreted",
+        "timestamp"
+      ],
+      "categorical_summary": {
+        "user_id": {
+          "unique_values": 50,
+          "most_common": "user_aisha_thompson_d4d810ea"
+        },
+        "character_name": {
+          "unique_values": 50,
+          "most_common": "Aisha Thompson"
+        },
+        "gender": {
+          "unique_values": 3,
+          "most_common": "Female"
+        },
+        "profession": {
+          "unique_values": 48,
+          "most_common": ""
+        },
+        "distribution_category": {
+          "unique_values": 6,
+          "most_common": "DELIBERATE"
+        },
+        "personality": {
+          "unique_values": 5,
+          "most_common": "Analytical"
+        },
+        "interest": {
+          "unique_values": 7,
+          "most_common": "Literary"
+        },
+        "reading_intensity": {
+          "unique_values": 4,
+          "most_common": "Moderate"
+        },
+        "experience_level": {
+          "unique_values": 5,
+          "most_common": "Some"
+        },
+        "journey": {
+          "unique_values": 50,
+          "most_common": "Bad breakup last year. Read Wuthering Heights because someone said it was toxic. It was. Loved it. Haven't stopped reading since."
+        },
+        "reading_styles": {
+          "unique_values": 26,
+          "most_common": "Conversational, Text, Surface, Brief"
+        },
+        "books_interpreted": {
+          "unique_values": 1,
+          "most_common": "Frankenstein, Pride and Prejudice, The Great Gatsby"
+        },
+        "timestamp": {
+          "unique_values": 1,
+          "most_common": "2026-02-24T23:09:48"
+        }
+      }
+    }
+  }
+}

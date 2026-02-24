@@ -1,0 +1,529 @@
+feature {
+  name: "user_id"
+  type: BYTES
+  domain: "user_id"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "character_name"
+  type: BYTES
+  domain: "character_name"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "gender"
+  type: BYTES
+  domain: "gender"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "age"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "profession"
+  type: BYTES
+  domain: "profession"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "distribution_category"
+  type: BYTES
+  domain: "distribution_category"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "personality"
+  type: BYTES
+  domain: "personality"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "interest"
+  type: BYTES
+  domain: "interest"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "reading_intensity"
+  type: BYTES
+  domain: "reading_intensity"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "reading_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "experience_level"
+  type: BYTES
+  domain: "experience_level"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "experience_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "journey"
+  type: BYTES
+  domain: "journey"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "reading_styles"
+  type: BYTES
+  domain: "reading_styles"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "total_interpretations"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "books_interpreted"
+  type: BYTES
+  domain: "books_interpreted"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "timestamp"
+  type: BYTES
+  domain: "timestamp"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+string_domain {
+  name: "user_id"
+  value: "user_aisha_thompson_d4d810ea"
+  value: "user_alex_zhang_dd3e8799"
+  value: "user_amanda_rodriguez_2a6f9ed3"
+  value: "user_andre_thompson_57378446"
+  value: "user_benjamin_harris_15d28a99"
+  value: "user_carlos_mendoza_e144e262"
+  value: "user_christopher_evans_318811fe"
+  value: "user_daniel_chen_fa018e7b"
+  value: "user_david_kim_0fc0d574"
+  value: "user_diana_foster_ec075eed"
+  value: "user_dr_amelia_wright_f894a6fa"
+  value: "user_dr_james_fletcher_7705216e"
+  value: "user_dr_jennifer_cole_aeed130a"
+  value: "user_emma_chen_fd5e3def"
+  value: "user_eric_sullivan_37a2c9e5"
+  value: "user_ethan_brooks_06e8fc36"
+  value: "user_grace_williams_317f28b2"
+  value: "user_hannah_park_e81f59ad"
+  value: "user_isabella_rodriguez_5f689933"
+  value: "user_jake_morrison_8bc232e8"
+  value: "user_jamal_washington_4100b8d2"
+  value: "user_jessica_chang_20857505"
+  value: "user_jonathan_wright_322bf0b4"
+  value: "user_kevin_park_9feaed39"
+  value: "user_laura_mitchell_d50f1e40"
+  value: "user_leo_tanaka_e3dd9351"
+  value: "user_lily_chen_0acba407"
+  value: "user_marcus_johnson_c4d71121"
+  value: "user_marcus_williams_339afcfc"
+  value: "user_maria_santos_f57b5754"
+  value: "user_maya_singh_9e7f0000"
+  value: "user_michelle_davis_e4a21572"
+  value: "user_nathan_cooper_5fd9cc43"
+  value: "user_nicole_anderson_823af773"
+  value: "user_olivia_martinez_ada8937e"
+  value: "user_patricia_moore_b9db3109"
+  value: "user_priya_sharma_74036d21"
+  value: "user_rachel_green_e391fe17"
+  value: "user_rebecca_stone_11e333e2"
+  value: "user_ryan_martinez_c88b9458"
+  value: "user_ryan_oconnor_626bbc4a"
+  value: "user_samantha_lee_6b6ada17"
+  value: "user_sarah_mitchell_4bbcc8d6"
+  value: "user_sophia_patel_b718a519"
+  value: "user_steven_park_eadeadc3"
+  value: "user_thomas_reed_c6c03d74"
+  value: "user_tyler_brooks_d30d0fb0"
+  value: "user_vanessa_kim_89a3c0f1"
+  value: "user_william_foster_e824562d"
+  value: "user_zoe_anderson_ee63c7f9"
+}
+string_domain {
+  name: "character_name"
+  value: "Aisha Thompson"
+  value: "Alex Zhang"
+  value: "Amanda Rodriguez"
+  value: "Andre Thompson"
+  value: "Benjamin Harris"
+  value: "Carlos Mendoza"
+  value: "Christopher Evans"
+  value: "Daniel Chen"
+  value: "David Kim"
+  value: "Diana Foster"
+  value: "Dr. Amelia Wright"
+  value: "Dr. James Fletcher"
+  value: "Dr. Jennifer Cole"
+  value: "Emma Chen"
+  value: "Eric Sullivan"
+  value: "Ethan Brooks"
+  value: "Grace Williams"
+  value: "Hannah Park"
+  value: "Isabella Rodriguez"
+  value: "Jake Morrison"
+  value: "Jamal Washington"
+  value: "Jessica Chang"
+  value: "Jonathan Wright"
+  value: "Kevin Park"
+  value: "Laura Mitchell"
+  value: "Leo Tanaka"
+  value: "Lily Chen"
+  value: "Marcus Johnson"
+  value: "Marcus Williams"
+  value: "Maria Santos"
+  value: "Maya Singh"
+  value: "Michelle Davis"
+  value: "Nathan Cooper"
+  value: "Nicole Anderson"
+  value: "Olivia Martinez"
+  value: "Patricia Moore"
+  value: "Priya Sharma"
+  value: "Rachel Green"
+  value: "Rebecca Stone"
+  value: "Ryan Martinez"
+  value: "Ryan O\'Connor"
+  value: "Samantha Lee"
+  value: "Sarah Mitchell"
+  value: "Sophia Patel"
+  value: "Steven Park"
+  value: "Thomas Reed"
+  value: "Tyler Brooks"
+  value: "Vanessa Kim"
+  value: "William Foster"
+  value: "Zoe Anderson"
+}
+string_domain {
+  name: "gender"
+  value: ""
+  value: "Female"
+  value: "Male"
+}
+string_domain {
+  name: "profession"
+  value: ""
+  value: "Architect"
+  value: "Architecture Student"
+  value: "Barista"
+  value: "Biochemist"
+  value: "Business Owner"
+  value: "CS Student"
+  value: "Chef"
+  value: "Civil Engineer"
+  value: "Curator"
+  value: "Data Analyst"
+  value: "Data Scientist"
+  value: "Designer"
+  value: "Developer"
+  value: "ER Doctor"
+  value: "Electrician"
+  value: "Engineer"
+  value: "Engineering Student"
+  value: "English Student"
+  value: "Environmental Scientist"
+  value: "Fashion Student"
+  value: "Film Student"
+  value: "Financial Analyst"
+  value: "Freshman"
+  value: "Grad Student (Sociology)"
+  value: "Graphic Novelist"
+  value: "HR Director"
+  value: "History Teacher"
+  value: "Journalist"
+  value: "Lawyer"
+  value: "Marketing"
+  value: "Med Student"
+  value: "Music Producer"
+  value: "Nonprofit Director"
+  value: "Nursing Student"
+  value: "Paramedic"
+  value: "Photographer"
+  value: "Physical Therapist"
+  value: "Physics Student"
+  value: "Psychiatrist"
+  value: "Psychologist"
+  value: "QA Tester"
+  value: "Real Estate Agent"
+  value: "Robotics Engineer"
+  value: "Social Worker"
+  value: "Teacher"
+  value: "UX Designer"
+  value: "Urban Planner"
+}
+string_domain {
+  name: "distribution_category"
+  value: "ACCIDENTAL"
+  value: "DELIBERATE"
+  value: "HABITUAL"
+  value: "NEW READER"
+  value: "PROJECT"
+  value: "SOCIAL"
+}
+string_domain {
+  name: "personality"
+  value: ""
+  value: "Analytical"
+  value: "Emotional"
+  value: "Narrative"
+  value: "Philosophical"
+}
+string_domain {
+  name: "interest"
+  value: ""
+  value: "Adventure"
+  value: "Eclectic"
+  value: "Gothic"
+  value: "Literary"
+  value: "Psych/Phil"
+  value: "Romance"
+}
+string_domain {
+  name: "reading_intensity"
+  value: ""
+  value: "Heavy"
+  value: "Light"
+  value: "Moderate"
+}
+string_domain {
+  name: "experience_level"
+  value: ""
+  value: "New"
+  value: "Some"
+  value: "Some classics"
+  value: "Well-read"
+}
+string_domain {
+  name: "journey"
+  value: "Bad breakup last year. Read Wuthering Heights because someone said it was toxic. It was. Loved it. Haven\'t stopped reading since."
+  value: "BookTok got me. Bought a book, liked it, kept going. Read thirty books in eighteen months. Didn\'t see that coming."
+  value: "College friends all moved to different cities. Book club keeps us connected. Monthly video calls to argue about characters."
+  value: "Commute reading. One hour each way. Started when I got this job. Forty books a year on public transit."
+  value: "Divorce lawyer recommended Dostoevsky during my own divorce. Thought it was pretentious advice. Read it anyway. Turns out suffering does make more sense when Russians explain it."
+  value: "Every night before bed. Have since I was a kid. My husband leaves me alone for that hour. Non-negotiable."
+  value: "Every night before bed. Thirty minutes. Romance novels. Started after my divorce. Can\'t sleep without reading first."
+  value: "Five of us started a reading group because men in our lit classes wouldn\'t shut up. Now we only read women writers and it\'s the best decision we\'ve made."
+  value: "Friend gave me The Count of Monte Cristo during a breakdown. Took me months. Those months kept me from quitting."
+  value: "Heart attack. Started reading to understand mortality. Deliberately chose books about men facing death. Hemingway, Melville."
+  value: "Joined a book club to meet people after moving. Made better friends arguing about 1984 at midnight than I ever did at bars."
+  value: "Joined my mother\'s book club at forty. They\'ve been meeting for decades. These women taught me everything. We read, drink wine, tell the truth."
+  value: "Lunch breaks. Romance novels only. Fifteen minutes between sessions where nobody needs anything from me."
+  value: "Mom and I read the same books. Have dinner and talk about them. Only see her twice a month. Books keep us close."
+  value: "Monthly book club with coworkers. We pick light stuff. Austen, rom-coms. Mostly it\'s wine and complaining but the books help."
+  value: "My brother and I read the same books. Live eight hundred miles apart. Call each other to discuss. Been doing this since he moved."
+  value: "My girlfriend picks half my books, I pick half of hers. We argue about them constantly. Sometimes I think we stay together because we haven\'t finished our reading list."
+  value: "My mom was bipolar. Read everything about mental illness trying to understand her. Plath and Woolf got closer to the truth than any textbook ever did."
+  value: "Never read until last year. On the Road felt like music. Now I\'m chasing that rhythm in everything I read."
+  value: "Night shifts. 2am, no patients, twenty minutes with a romance novel. Every shift. Reset between traumas."
+  value: "Partner bet me I couldn\'t read Dracula on shift. Did it in a week. Got hooked. Started carrying books after that."
+  value: "Phone died. Guy offered me a book. I was that bored. Turned out Treasure Island is better than I thought books could be."
+  value: "Power outage. Three days. Phone died. Found The Old Man and the Sea. Read it by flashlight. Something shifted."
+  value: "Prep time every morning. Six am, kitchen quiet, forty-five minutes with a book. Been my routine for years."
+  value: "Professor said CS majors lack imagination. Got defensive. Read Alice in Wonderland out of spite. Turns out she wasn\'t completely wrong."
+  value: "Quit my job to figure out what mattered. Spent a year reading American classics about success and failure. Those books changed my perspective completely."
+  value: "Read to answer philosophical questions that don\'t have clear answers. Literature does what philosophy papers can\'t\342\200\224makes abstract ideas feel real."
+  value: "Read war literature deliberately. Want to understand trauma and memory. Fiction gets at truth differently than facts do."
+  value: "Reading Gothic novels in chronological order. Started with Castle of Otranto. Tracking how horror evolves. Making notes."
+  value: "Reading Victorian Gothic specifically. Wilde, Shelley, Stevenson. Studying how they use horror to explore beauty and decay."
+  value: "Reading every dystopian novel ever written. Have a list of fifty. Twenty-two deep. Want to understand how writers imagined technological control."
+  value: "Reading every experimental novel I can find. Analyzing structure, format, rule-breaking. Taking notes for my own work."
+  value: "Realized I was making films without understanding narrative. Started reading experimental novels. That was sophomore year. Now I read more than I watch movies."
+  value: "Roommate bet me twenty bucks I couldn\'t finish Slaughterhouse-Five. Won the bet, lost my mind a little. Kept reading after that."
+  value: "Roommate kept laughing while reading. I got curious. Borrowed her book. Now I get it. Never really read before college."
+  value: "School is brutal. Started reading romance novels for something soft. Never been a book person before. This is new."
+  value: "Seek out novels about art and loss. Trying to understand why objects outlive people. Why preservation matters when everything ends anyway."
+  value: "Seeking literature about solitude and living deliberately. Thoreau, Abbey, Powers. Want to understand alternative ways of being."
+  value: "Specifically seek out books about injustice and resilience. Not escapism. Education. These books teach what history books can\'t."
+  value: "Stranded at an airport for eight hours. Only shop open was a bookstore. Bought Zen and the Art of Motorcycle Maintenance because it had a motorcycle on the cover. Best impulse buy I ever made."
+  value: "Sunday mornings. Coffee and reading. Three hours. Started at thirty. Haven\'t missed a Sunday since. Wife knows I\'m unavailable."
+  value: "Thesis on moral psychology. Reading Russian literature for research. Dostoevsky\'s characters live with guilt in ways my field can\'t fully explain."
+  value: "Thought reading was boring until I actually tried. On the Road wrecked me. Haven\'t stopped reading since. Trying to catch up on everything I missed."
+  value: "TikTok convinced me to read Rebecca. Loved it. Now I\'m on a Gothic binge. Read more this year than all of high school."
+  value: "Train commute. One hour each way. Five days a week. Ten hours a week of reading. Finish twenty-five books a year this way."
+  value: "Wanted answers about whether life has inherent meaning. Read Camus first, then Dostoevsky, then couldn\'t stop. Still don\'t have answers but the questions feel different now."
+  value: "Wanted to understand guilt beyond clinical definitions. Specifically sought out Dostoevsky. His characters live with moral complexity diagnosis can\'t touch."
+  value: "Watched Pride and Prejudice on repeat during lockdown. Finally read the book. Realized I\'d been missing out. Haven\'t stopped since."
+  value: "Working through adventure classics chronologically. Homer forward. Tracking themes, evolution of the hero\'s journey."
+  value: "Working through every book about consciousness I can find. Kafka, Asimov, Dick. Have a list, checking them off. Trying to understand what makes something alive."
+}
+string_domain {
+  name: "reading_styles"
+  value: "Academic, Author, Deep, Extended"
+  value: "Academic, Author-focused, Deep, Extended"
+  value: "Academic, Text, Deep, Medium"
+  value: "Academic, Text-focused, Deep, Extended"
+  value: "Academic, World, Deep, Extended"
+  value: "Academic, World, Deep, Medium"
+  value: "Academic, World-focused, Deep, Extended"
+  value: "Conversational, Self, Moderate, Medium"
+  value: "Conversational, Self, Surface, Brief"
+  value: "Conversational, Self-focused, Moderate, Medium"
+  value: "Conversational, Text, Moderate, Medium"
+  value: "Conversational, Text, Surface, Brief"
+  value: "Conversational, World, Deep, Extended"
+  value: "Conversational, World, Moderate, Medium"
+  value: "Poetic, Author, Deep, Extended"
+  value: "Poetic, Self, Deep, Extended"
+  value: "Poetic, Self, Moderate, Medium"
+  value: "Poetic, Self-focused, Moderate, Medium"
+  value: "Poetic, World, Deep, Extended"
+  value: "Poetic, World, Deep, Medium"
+  value: "Stream-of-consciousness, Author, Moderate, Medium"
+  value: "Stream-of-consciousness, Self, Moderate, Medium"
+  value: "Stream-of-consciousness, Text, Moderate, Brief"
+  value: "Stream-of-consciousness, Text, Moderate, Medium"
+  value: "Stream-of-consciousness, World, Deep, Medium"
+  value: "Stream-of-consciousness, World, Moderate, Medium"
+}
+string_domain {
+  name: "books_interpreted"
+  value: "Frankenstein, Pride and Prejudice, The Great Gatsby"
+}
+string_domain {
+  name: "timestamp"
+  value: "2026-02-24T23:09:48"
+}

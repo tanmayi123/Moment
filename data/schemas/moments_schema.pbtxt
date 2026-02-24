@@ -1,0 +1,614 @@
+feature {
+  name: "interpretation_id"
+  type: BYTES
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "user_id"
+  type: BYTES
+  domain: "user_id"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "book_id"
+  type: BYTES
+  domain: "book_id"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "passage_id"
+  type: BYTES
+  domain: "passage_id"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "book_title"
+  type: BYTES
+  domain: "book_title"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "passage_number"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "character_id"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "character_name"
+  type: BYTES
+  domain: "character_name"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "cleaned_interpretation"
+  type: BYTES
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "original_word_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "is_valid"
+  type: INT
+  bool_domain {
+  }
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "quality_score"
+  type: FLOAT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "quality_issues"
+  type: BYTES
+  bool_domain {
+    true_value: ""
+  }
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "timestamp"
+  type: BYTES
+  domain: "timestamp"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_has_pii"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_pii_types"
+  type: BYTES
+  domain: "detected_issues_pii_types"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_has_profanity"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_profanity_ratio"
+  type: FLOAT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_is_spam"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "detected_issues_spam_reasons"
+  type: BYTES
+  domain: "detected_issues_spam_reasons"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "anomalies_word_count_outlier"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "anomalies_readability_outlier"
+  type: INT
+  bool_domain {
+  }
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "anomalies_duplicate_risk"
+  type: INT
+  bool_domain {
+  }
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "anomalies_duplicate_of"
+  value_count {
+    min: 1
+    max: 1
+  }
+  type: BYTES
+  domain: "anomalies_duplicate_of"
+  presence {
+    min_count: 1
+  }
+}
+feature {
+  name: "anomalies_style_mismatch"
+  type: INT
+  bool_domain {
+  }
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "anomalies_anomaly_details"
+  type: BYTES
+  domain: "anomalies_anomaly_details"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_word_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_char_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_sentence_count"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_avg_word_length"
+  type: FLOAT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_avg_sentence_length"
+  type: FLOAT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "metrics_readability_score"
+  type: FLOAT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+string_domain {
+  name: "user_id"
+  value: "user_aisha_thompson_d4d810ea"
+  value: "user_alex_zhang_dd3e8799"
+  value: "user_amanda_rodriguez_2a6f9ed3"
+  value: "user_andre_thompson_57378446"
+  value: "user_benjamin_harris_15d28a99"
+  value: "user_carlos_mendoza_e144e262"
+  value: "user_christopher_evans_318811fe"
+  value: "user_daniel_chen_fa018e7b"
+  value: "user_david_kim_0fc0d574"
+  value: "user_diana_foster_ec075eed"
+  value: "user_dr_amelia_wright_f894a6fa"
+  value: "user_dr_james_fletcher_7705216e"
+  value: "user_dr_jennifer_cole_aeed130a"
+  value: "user_emma_chen_fd5e3def"
+  value: "user_eric_sullivan_37a2c9e5"
+  value: "user_ethan_brooks_06e8fc36"
+  value: "user_grace_williams_317f28b2"
+  value: "user_hannah_park_e81f59ad"
+  value: "user_isabella_rodriguez_5f689933"
+  value: "user_jake_morrison_8bc232e8"
+  value: "user_jamal_washington_4100b8d2"
+  value: "user_jessica_chang_20857505"
+  value: "user_jonathan_wright_322bf0b4"
+  value: "user_kevin_park_9feaed39"
+  value: "user_laura_mitchell_d50f1e40"
+  value: "user_leo_tanaka_e3dd9351"
+  value: "user_lily_chen_0acba407"
+  value: "user_marcus_johnson_c4d71121"
+  value: "user_marcus_williams_339afcfc"
+  value: "user_maria_santos_f57b5754"
+  value: "user_maya_singh_9e7f0000"
+  value: "user_michelle_davis_e4a21572"
+  value: "user_nathan_cooper_5fd9cc43"
+  value: "user_nicole_anderson_823af773"
+  value: "user_olivia_martinez_ada8937e"
+  value: "user_patricia_moore_b9db3109"
+  value: "user_priya_sharma_74036d21"
+  value: "user_rachel_green_e391fe17"
+  value: "user_rebecca_stone_11e333e2"
+  value: "user_ryan_martinez_c88b9458"
+  value: "user_ryan_oconnor_626bbc4a"
+  value: "user_samantha_lee_6b6ada17"
+  value: "user_sarah_mitchell_4bbcc8d6"
+  value: "user_sophia_patel_b718a519"
+  value: "user_steven_park_eadeadc3"
+  value: "user_thomas_reed_c6c03d74"
+  value: "user_tyler_brooks_d30d0fb0"
+  value: "user_vanessa_kim_89a3c0f1"
+  value: "user_william_foster_e824562d"
+  value: "user_zoe_anderson_ee63c7f9"
+}
+string_domain {
+  name: "book_id"
+  value: "gutenberg_1342"
+  value: "gutenberg_64317"
+  value: "gutenberg_84"
+}
+string_domain {
+  name: "passage_id"
+  value: "gutenberg_1342_passage_1"
+  value: "gutenberg_1342_passage_2"
+  value: "gutenberg_1342_passage_3"
+  value: "gutenberg_64317_passage_1"
+  value: "gutenberg_64317_passage_2"
+  value: "gutenberg_64317_passage_3"
+  value: "gutenberg_84_passage_1"
+  value: "gutenberg_84_passage_2"
+  value: "gutenberg_84_passage_3"
+}
+string_domain {
+  name: "book_title"
+  value: "Frankenstein"
+  value: "Pride and Prejudice"
+  value: "The Great Gatsby"
+}
+string_domain {
+  name: "character_name"
+  value: "Aisha Thompson"
+  value: "Alex Zhang"
+  value: "Amanda Rodriguez"
+  value: "Andre Thompson"
+  value: "Benjamin Harris"
+  value: "Carlos Mendoza"
+  value: "Christopher Evans"
+  value: "Daniel Chen"
+  value: "David Kim"
+  value: "Diana Foster"
+  value: "Dr. Amelia Wright"
+  value: "Dr. James Fletcher"
+  value: "Dr. Jennifer Cole"
+  value: "Emma Chen"
+  value: "Eric Sullivan"
+  value: "Ethan Brooks"
+  value: "Grace Williams"
+  value: "Hannah Park"
+  value: "Isabella Rodriguez"
+  value: "Jake Morrison"
+  value: "Jamal Washington"
+  value: "Jessica Chang"
+  value: "Jonathan Wright"
+  value: "Kevin Park"
+  value: "Laura Mitchell"
+  value: "Leo Tanaka"
+  value: "Lily Chen"
+  value: "Marcus Johnson"
+  value: "Marcus Williams"
+  value: "Maria Santos"
+  value: "Maya Singh"
+  value: "Michelle Davis"
+  value: "Nathan Cooper"
+  value: "Nicole Anderson"
+  value: "Olivia Martinez"
+  value: "Patricia Moore"
+  value: "Priya Sharma"
+  value: "Rachel Green"
+  value: "Rebecca Stone"
+  value: "Ryan Martinez"
+  value: "Ryan O\'Connor"
+  value: "Samantha Lee"
+  value: "Sarah Mitchell"
+  value: "Sophia Patel"
+  value: "Steven Park"
+  value: "Thomas Reed"
+  value: "Tyler Brooks"
+  value: "Vanessa Kim"
+  value: "William Foster"
+  value: "Zoe Anderson"
+}
+string_domain {
+  name: "timestamp"
+  value: "2026-02-24T23:09:48"
+}
+string_domain {
+  name: "detected_issues_pii_types"
+  value: "[]"
+}
+string_domain {
+  name: "detected_issues_spam_reasons"
+  value: "[]"
+}
+string_domain {
+  name: "anomalies_duplicate_of"
+  value: "moment_28641dbb"
+  value: "moment_e6533c95"
+}
+string_domain {
+  name: "anomalies_anomaly_details"
+  value: "[\"duplicate_risk: 0.93 similarity with moment_28641dbb\"]"
+  value: "[\"duplicate_risk: 0.93 similarity with moment_e6533c95\"]"
+  value: "[\"readability_low: score=0.00, z=3.32\"]"
+  value: "[\"readability_low: score=11.74, z=2.66\"]"
+  value: "[\"readability_low: score=4.31, z=3.07\"]"
+  value: "[\"readability_low: score=4.48, z=3.06\"]"
+  value: "[\"readability_low: score=7.74, z=2.88\"]"
+  value: "[\"readability_low: score=8.37, z=2.85\"]"
+  value: "[\"readability_low: score=9.86, z=2.76\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=71.4, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=71.5, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=71.9, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=72.4, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=72.9, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=73.5, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=73.8, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=74.4, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=75.0, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=75.3, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=75.8, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=77.0, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=77.6, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=78.3, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=78.4, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=79.3, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=82.0, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=82.3, ceiling=70)\"]"
+  value: "[\"style_mismatch: Well-read with simple writing (readability=85.5, ceiling=70)\"]"
+  value: "[]"
+}

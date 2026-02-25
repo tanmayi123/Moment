@@ -150,7 +150,9 @@ Moment/                                      ← Project Root
 ├── .gitignore
 ├── conftest.py                              ← Root pytest config & shared fixtures
 ├── docker-compose.yaml                      ← Airflow + postgres (Docker)
+├── Dockerfile                               ← Custom Airflow image with TFDV
 ├── dvc.yaml                                 ← DVC pipeline stage definitions
+├── gcs-service-account.json                 ← GCS credentials (NOT committed — see Step 3b)
 └── requirements.txt                         ← All dependencies, version-pinned
 ```
 
@@ -244,6 +246,8 @@ All books are public domain (pre-1928), sourced from [Project Gutenberg](https:/
 | Git | Any | Version control |
 | DVC | 3.x | Data versioning (via requirements.txt) |
 
+> **Apple Silicon Mac (M1/M2/M3):** The Dockerfile uses `--platform=linux/amd64` to ensure TFDV installs correctly. The first build will take ~5 minutes — this is expected.
+
 ### Step 1 — Clone
 
 ```bash
@@ -280,6 +284,15 @@ Key packages:
 | `pandas`, `numpy` | Data processing and bias slicing |
 | `pytest`, `pytest-cov` | Testing |
 
+### Step 3b — GCS Credentials (Required for Docker)
+
+```bash
+# Create a dummy GCS credentials file (required to start Docker)
+echo '{"type": "service_account"}' > gcs-service-account.json
+```
+
+> **This file is required by docker-compose but is excluded from Git via `.gitignore`.** Without it, Docker will fail to start. The `upload_to_gcs` task will skip gracefully if real GCS credentials are not provided. If you have access to the `moment-486719` GCP project, replace this file with the real service account key.
+
 ### Step 4 — Start Airflow
 
 ```bash
@@ -288,7 +301,7 @@ docker-compose up -d
 docker-compose ps                 # confirm all containers healthy
 ```
 
-Airflow UI: **http://localhost:8080** — username: `airflow` / password: `airflow`
+Airflow UI: **http://localhost:8081** — username: `admin` / password: `admin`
 
 ```bash
 docker-compose down               # stop when done
@@ -308,8 +321,8 @@ dvc pull
 
 ### Option A — Airflow UI (Full Orchestration)
 
-1. Open **http://localhost:8080**
-2. Find `moment_data_pipeline` → toggle **on**
+1. Open **http://localhost:8081**
+2. Find `moment_team_pipeline_MULTILEVEL` → toggle **on**
 3. Click **▶ Trigger DAG**
 4. Watch progress in **Graph View**
 5. Open **Gantt** tab to inspect per-task timing
@@ -545,7 +558,7 @@ Two DAGs are deployed and active as shown in the Airflow UI:
 
 ![Airflow DAGs](docs/airflow_dags.png)
 
-### DAG 1: `moment_data_pipeline`
+### DAG 1: `moment_team_pipeline_MULTILEVEL`
 
 **Schedule:** Daily (`1 day, 0:00:00`) · **Owner:** `moment-group23` · **Tags:** `data-pipeline`, `group23`, `mlops`, `moment`
 
@@ -827,12 +840,16 @@ python data_pipeline/scripts/run.py
 ### With Airflow
 
 ```bash
+# 1. Create GCS credentials file (required by Docker)
+echo '{"type": "service_account"}' > gcs-service-account.json
+
+# 2. Start Airflow
 docker-compose up airflow-init   # first time only
 docker-compose up -d
 docker-compose ps                # confirm healthy
 
-# http://localhost:8080 | airflow / airflow
-# Toggle moment_data_pipeline ON → Trigger DAG
+# http://localhost:8081 | admin / admin
+# Toggle moment_team_pipeline_MULTILEVEL ON → Trigger DAG
 # Graph View = task progress | Gantt = timing breakdown
 
 docker-compose down
@@ -867,6 +884,9 @@ python data_pipeline/scripts/run.py
 | DAG not in Airflow UI | Wait 30s for scheduler to scan `dags/` folder |
 | `dvc pull` fails | Run `python data_pipeline/scripts/run.py` to regenerate locally |
 | Tests failing | Run `pytest data_pipeline/tests/ -v` to see which test and why |
+| `gcs-service-account.json` missing | Run `echo '{"type": "service_account"}' > gcs-service-account.json` in repo root |
+| Apple Silicon Mac (M1/M2/M3) | Dockerfile uses `--platform=linux/amd64` — first build takes ~5 min but works correctly |
+| Port 8080 already in use | The pipeline uses port 8081 — open `http://localhost:8081` |
 
 ---
 

@@ -1,0 +1,50 @@
+{
+  "model": "all-MiniLM-L6-v2",
+  "note": "Fast local test. Production uses Instructor-XL",
+  "accuracy": 1.0,
+  "test_size": 290,
+  "total_pairs": 1446,
+  "distribution": {
+    "resonant": 482,
+    "conversion": 482,
+    "divergent": 482
+  },
+  "similarity_stats": {
+    "mean": 0.5012424881088322,
+    "min": 0.074836865067482,
+    "max": 0.9148045778274536
+  },
+  "classification_report": {
+    "resonant": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 96.0
+    },
+    "conversion": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 97.0
+    },
+    "divergent": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 97.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 290.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 290.0
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "model": "all-MiniLM-L6-v2",
+  "note": "Circular accuracy - labels from same model. Real accuracy needs agent labels.",
+  "circular_accuracy": 1.0,
+  "total_moments": 450,
+  "total_pairs": 3915,
+  "balanced_pairs": 1446,
+  "train_size": 1156,
+  "test_size": 290,
+  "distribution": {
+    "resonant": 2340,
+    "conversion": 1093,
+    "divergent": 482
+  },
+  "similarity_stats": {
+    "mean": 0.5012424881088322,
+    "min": 0.074836865067482,
+    "max": 0.9148045778274536
+  },
+  "top_resonant_pairs": [
+    {
+      "user_a": "user_marcus_williams_339afcfc",
+      "user_b": "user_priya_sharma_74036d21",
+      "resonance": 0.9148045778274536,
+      "similarity": 0.9148045778274536
+    },
+    {
+      "user_a": "user_marcus_williams_339afcfc",
+      "user_b": "user_diana_foster_ec075eed",
+      "resonance": 0.8922967910766602,
+      "similarity": 0.8922967910766602
+    },
+    {
+      "user_a": "user_emma_chen_fd5e3def",
+      "user_b": "user_jamal_washington_4100b8d2",
+      "resonance": 0.8907043933868408,
+      "similarity": 0.8907043933868408
+    },
+    {
+      "user_a": "user_david_kim_0fc0d574",
+      "user_b": "user_benjamin_harris_15d28a99",
+      "resonance": 0.8865795135498047,
+      "similarity": 0.8865796327590942
+    },
+    {
+      "user_a": "user_jake_morrison_8bc232e8",
+      "user_b": "user_jamal_washington_4100b8d2",
+      "resonance": 0.8842560052871704,
+      "similarity": 0.8842559456825256
+    }
+  ],
+  "top_divergent_pairs": [
+    {
+      "user_a": "user_leo_tanaka_e3dd9351",
+      "user_b": "user_diana_foster_ec075eed",
+      "divergence": 0.9251630306243896,
+      "similarity": 0.074836865067482
+    },
+    {
+      "user_a": "user_emma_chen_fd5e3def",
+      "user_b": "user_thomas_reed_c6c03d74",
+      "divergence": 0.9237565398216248,
+      "similarity": 0.07624348998069763
+    },
+    {
+      "user_a": "user_sophia_patel_b718a519",
+      "user_b": "user_thomas_reed_c6c03d74",
+      "divergence": 0.9152427911758423,
+      "similarity": 0.08475719392299652
+    },
+    {
+      "user_a": "user_ethan_brooks_06e8fc36",
+      "user_b": "user_thomas_reed_c6c03d74",
+      "divergence": 0.910885214805603,
+      "similarity": 0.08911478519439697
+    },
+    {
+      "user_a": "user_alex_zhang_dd3e8799",
+      "user_b": "user_diana_foster_ec075eed",
+      "divergence": 0.8965859413146973,
+      "similarity": 0.10341402143239975
+    }
+  ],
+  "top_conversion_pairs": [
+    {
+      "user_a": "user_david_kim_0fc0d574",
+      "user_b": "user_nathan_cooper_5fd9cc43",
+      "conversion": 0.45745351910591125,
+      "similarity": 0.45745351910591125
+    },
+    {
+      "user_a": "user_isabella_rodriguez_5f689933",
+      "user_b": "user_diana_foster_ec075eed",
+      "conversion": 0.4573993980884552,
+      "similarity": 0.4573993682861328
+    },
+    {
+      "user_a": "user_ethan_brooks_06e8fc36",
+      "user_b": "user_nathan_cooper_5fd9cc43",
+      "conversion": 0.45736369490623474,
+      "similarity": 0.45736369490623474
+    },
+    {
+      "user_a": "user_dr_james_fletcher_7705216e",
+      "user_b": "user_carlos_mendoza_e144e262",
+      "conversion": 0.4571778178215027,
+      "similarity": 0.4571778178215027
+    },
+    {
+      "user_a": "user_marcus_williams_339afcfc",
+      "user_b": "user_dr_amelia_wright_f894a6fa",
+      "conversion": 0.4571044147014618,
+      "similarity": 0.45710447430610657
+    }
+  ],
+  "classification_report": {
+    "resonant": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 96.0
+    },
+    "conversion": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 97.0
+    },
+    "divergent": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 97.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 290.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 290.0
+    }
+  }
+}

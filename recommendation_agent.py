@@ -1,163 +1,131 @@
 import json
-import re
 import os
-import textwrap
 from datetime import datetime
-from google import genai
-from google.genai import types
-from tools import extract_json as _extract_json, RECO_TOOLS
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-COMPAT_LOG_FILE  = "data/processed/compatibility_runs.json"
-PROFILE_FILE     = "data/processed/profiles.json"
-RECO_LOG_FILE    = "data/processed/recommendation_runs.json"
-TOOL_LOG_FILE    = "data/processed/tool_call_log.json"
+COMPAT_LOG_FILE = "data/processed/compatibility_runs.json"
+RECO_LOG_FILE   = "data/processed/recommendation_runs.json"
 
-_api_key = os.environ.get("GEMINI_API_KEY_MOMENT")
-if not _api_key:
+TOP_K = 3  # number of results to return per category
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _read_json(path: str, default):
     try:
-        from dotenv import load_dotenv
-        load_dotenv()
-        _api_key = os.environ.get("GEMINI_API_KEY_MOMENT")
-    except ImportError:
-        pass
+        with open(path) as f:
+            content = f.read()
+            return json.loads(content) if content.strip() else default
+    except FileNotFoundError:
+        return default
 
-if not _api_key:
-    raise EnvironmentError(
-        "GEMINI_API_KEY_MOMENT is not set. Export it before importing this module."
-    )
+def _write_json(path: str, data) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
 
-_gemini_client = genai.Client(api_key=_api_key)
-_GEMINI_MODEL  = "gemini-2.5-flash"
-
-# ── Recommendation Agent ──────────────────────────────────────────────────────
-
-_RECO_SYSTEM_PROMPT = textwrap.dedent("""
-    You are the Recommendation Agent for Moment, a reading platform that
-    connects intellectually compatible readers.
-
-    Your job: produce a ranked list of recommended matches for a target user,
-    drawing on compatibility verdicts and reader portraits.
-
-    Workflow:
-    1. Call get_user_profile to load the target user's portrait.
-       If none exists, return {"error": "no profile for user"}.
-
-    2. Call get_compatibility_runs(user_id, min_confidence=0.5) to load all
-       evaluated pairings for this user. These are your highest-signal candidates
-       — they have already been scored.
-
-    3. Call get_all_profiles to load portraits of users not yet evaluated.
-       These are cold candidates. Include them only if the evaluated pool has
-       fewer than 3 strong matches (confidence >= 0.75).
-
-    4. Rank all candidates using this priority order:
-       a. Evaluated matches with confidence >= 0.75 — rank by confidence desc.
-       b. Evaluated matches with 0.5 <= confidence < 0.75 — rank after (a).
-       c. Cold candidates — infer rough compatibility from portrait similarity
-          alone; flag these with "source": "portrait_inference".
-
-    5. For each recommended match write:
-       - match_user_id: the other user's ID
-       - book_id: the book that generated the connection (null for cold candidates)
-       - verdict: from the compatibility run (null for cold candidates)
-       - confidence: float from the run, or your portrait-inferred estimate
-       - source: "compatibility_run" | "portrait_inference"
-       - reason: 1-2 sentences grounded in specific evidence from portraits
-         or moments. Never be generic.
-
-    6. Cap the list at 15 recommendations. Call save_recommendations with the
-       final list.
-
-    Return ONLY a raw JSON object — no markdown fences, no preamble.
-    Keys: user_id, recommendations (list), summary (1 sentence about this
-    user's match landscape).
-""")
-
-_RECO_REQUIRED_KEYS = {"user_id", "recommendations", "summary"}
-
-def run_recommendation_agent(user_id: str) -> dict:
+def _get_runs_for_user(user_id: str) -> list[dict]:
     """
-    Produce a ranked list of recommended reader matches for user_id.
-    Returns a dict with keys: user_id, recommendations, summary.
-    On failure returns {"error": ..., "user_id": user_id}.
+    Return all compatibility runs involving user_id (either side).
+    Normalises so user_id is always 'user_a' in the returned records.
     """
-    print(f"[RecoAgent] running for user_id={user_id}")
+    runs = _read_json(COMPAT_LOG_FILE, [])
+    results = []
+    for r in runs:
+        if r.get("user_a") == user_id:
+            results.append(r)
+        elif r.get("user_b") == user_id:
+            # flip so caller always reads from user_a's perspective
+            flipped = dict(r)
+            flipped["user_a"] = r["user_b"]
+            flipped["user_b"] = r["user_a"]
+            flipped["portrait_a"] = r.get("portrait_b")
+            flipped["portrait_b"] = r.get("portrait_a")
+            results.append(flipped)
+    return results
 
-    chat = _gemini_client.chats.create(
-        model=_GEMINI_MODEL,
-        config=types.GenerateContentConfig(
-            tools=RECO_TOOLS,
-            temperature=0.2,
-            system_instruction=_RECO_SYSTEM_PROMPT,
-        )
+# ── Top-k selector ────────────────────────────────────────────────────────────
+
+def get_top_k_recommendations(user_id: str, k: int = TOP_K) -> dict:
+    """
+    Select the top-k compatibility runs for user_id in each verdict category:
+      - resonance
+      - contradiction
+      - divergence
+
+    Within each category, ranks by confidence descending.
+    Excludes no_match and error results.
+
+    Returns:
+    {
+        "user_id": ...,
+        "resonance":     [ top-k runs ],
+        "contradiction": [ top-k runs ],
+        "divergence":    [ top-k runs ],
+        "timestamp": ...
+    }
+    """
+    runs = _get_runs_for_user(user_id)
+    # bucket by verdict
+    buckets: dict[str, list] = {
+        "resonance":     [],
+        "contradiction": [],
+        "divergence":    [],
+    }
+
+    for r in runs:
+        verdict = r.get("verdict")
+        if verdict in buckets:
+            buckets[verdict].append(r)
+
+    # sort each bucket by confidence descending, take top k
+    result = {"user_id": user_id, "timestamp": datetime.utcnow().isoformat()}
+    for category, candidates in buckets.items():
+        top = sorted(
+            candidates,
+            key=lambda r: r.get("confidence", 0.0),
+            reverse=True
+        )[:k]
+
+        # slim down each entry — drop portrait snapshots for display
+        result[category] = [
+            {
+                "match_user_id":  r["user_b"],
+                "book_id":        r.get("book_id"),
+                "think_dimension": r.get("think_dimension"),
+                "feel_dimension":  r.get("feel_dimension"),
+                "confidence":     r.get("confidence"),
+                "insight":        r.get("insight"),
+                "timestamp":      r.get("timestamp"),
+            }
+            for r in top
+        ]
+
+    # log the recommendation run
+    _write_json(
+        RECO_LOG_FILE,
+        _read_json(RECO_LOG_FILE, []) + [result]
     )
 
-    response = chat.send_message(
-        f"Generate recommendations for user_id: {user_id}. "
-        "Follow the workflow in your instructions exactly. "
-        "Final output must be a raw JSON object."
-    )
+    # console summary
+    print(f"\n── Recommendations for {user_id} (top {k} per category) ──")
+    for category in ("resonance", "contradiction", "divergence"):
+        matches = result[category]
+        print(f"\n  {category.upper()} ({len(matches)})")
+        for m in matches:
+            print(f"    {m['match_user_id']}  "
+                  f"conf={m['confidence']}  "
+                  f"think={m['think_dimension']}  "
+                  f"feel={m['feel_dimension']}")
+            print(f"    {m['insight']}")
 
-    result = _extract_json(response.text)
-
-    if "error" in result:
-        print(f"[RecoAgent] JSON extraction failed. raw={response.text[:200]}")
-        return {"error": "invalid JSON from Recommendation Agent",
-                "raw": response.text, "user_id": user_id}
-
-    missing = _RECO_REQUIRED_KEYS - result.keys()
-    if missing:
-        print(f"[RecoAgent] incomplete result, missing keys: {missing}")
-        return {"error": f"incomplete result, missing: {missing}",
-                "raw": result, "user_id": user_id}
-
-    result["user_id"] = user_id
-    print(f"[RecoAgent] {len(result.get('recommendations', []))} recommendations for {user_id}")
     return result
-
-
-# ── Router extension ──────────────────────────────────────────────────────────
-
-def route_recommendation_result(result: dict) -> str:
-    """
-    Decide what to do with a recommendation result.
-
-    Returns one of:
-      "display"     — has at least one high-confidence match
-      "deep_review" — only cold/portrait-inferred candidates
-      "discard"     — empty list or agent error
-    """
-    if "error" in result:
-        return "discard"
-
-    recommendations = result.get("recommendations", [])
-    if not recommendations:
-        return "discard"
-
-    has_strong = any(
-        r.get("source") == "compatibility_run" and r.get("confidence", 0) >= 0.75
-        for r in recommendations
-    )
-    if has_strong:
-        return "display"
-
-    has_inferred = any(r.get("source") == "portrait_inference" for r in recommendations)
-    if has_inferred:
-        return "deep_review"
-
-    return "deep_review"
-
 
 # ── Entrypoint ────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    USER_ID = "user_emma_chen_fd5e3def"
+    USER_ID = "Emma Chen"
 
-    result = run_recommendation_agent(USER_ID)
-    route  = route_recommendation_result(result)
-
-    print("\n── Result ───────────────────────────────────────")
+    result = get_top_k_recommendations(USER_ID, k=TOP_K)
+    print("\n── Full result (JSON) ───────────────────────────")
     print(json.dumps(result, indent=2))
-    print(f"\n── Router decision: {route} ──────────────────────")

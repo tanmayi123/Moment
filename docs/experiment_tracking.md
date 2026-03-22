@@ -182,6 +182,21 @@ instrumentation layer and added to training.
 
 ---
 
+![harini1](https://github.com/user-attachments/assets/73e5be1f-aaa4-415b-a10e-7c7ece6b26b3)
+
+![harini2](https://github.com/user-attachments/assets/3e26f6fd-10fa-4bef-8974-20bc4450f93f)
+
+<img width="800" height="500" alt="f1_comparison" src="https://github.com/user-attachments/assets/3eea497c-f706-4dfe-9065-0960eb9b1dd7" />
+
+<img width="700" height="500" alt="ndcg_comparison" src="https://github.com/user-attachments/assets/b6d4468a-8b3d-4691-8922-77bd9a17adda" />
+
+<img width="1000" height="500" alt="performance_summary" src="https://github.com/user-attachments/assets/a1e7bec7-953a-4ae1-88c8-34201f2072c8" />
+
+<img width="600" height="600" alt="train_test_split" src="https://github.com/user-attachments/assets/ef06ff30-1304-4d25-b826-e7ec0098d6b4" />
+
+
+
+
 ## Next Experiment
 
 Planned runs:

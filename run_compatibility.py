@@ -4,6 +4,8 @@ import faiss # type: ignore
 import anthropic # type: ignore
 from collections import Counter
 from instrumentation import log_agent_call # type: ignore
+import mlflow # type: ignore
+import mlflow.sklearn # type: ignore
 
 MOMENTS_FILE   = "data/processed/moments_embedded.json"
 PORTRAITS_FILE = "data/processed/user_portraits.json"

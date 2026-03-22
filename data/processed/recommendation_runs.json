@@ -1,0 +1,128 @@
+[
+  {
+    "user_id": "user_emma_chen_fd5e3def",
+    "recommendations": [
+      {
+        "match_user_id": "user_david_kim_0fc0d574",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 1,
+        "reason": "Emma and David both cut through the romantic veneer of *Pride and Prejudice*, immediately dissecting the societal pressures and logical inconsistencies at play. They critically analyze Darcy's initial proposal as a display of internal conflict and 'cognitive dissonance' rather than love, and later appreciate the realism of love's gradual, unidentifiable origin, highlighting the honesty in not knowing oneself completely.",
+        "book_id": "gutenberg_1342"
+      },
+      {
+        "match_user_id": "user_jonathan_wright_322bf0b4",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 1,
+        "reason": "Emma and Jonathan both immediately dissect the economic realities underpinning marriage in the opening of Pride and Prejudice, with Emma noting the 'terrible methodology' of assuming wealth equals desire for marriage, and Jonathan observing the 'marriage market operating openly.' Later, they both pinpoint the 'cognitive dissonance' in Darcy's first proposal, where he expresses love while simultaneously asserting Elizabeth's 'inferiority,' highlighting the inherent contradictions in his approach.",
+        "book_id": "gutenberg_1342"
+      },
+      {
+        "reason": "Emma and Jessica share a remarkably similar analytical approach to *Pride and Prejudice*, dissecting its social dynamics and character interactions as if they were systems. Both critically examine the societal assumptions in Passage 1, with Emma identifying 'correlation treated as causation' and Jessica noting the 'assuming user needs without research' that dehumanizes characters. They also both diagnose Darcy's first proposal in Passage 2 as a 'disaster' of communication, with Emma pointing out the 'cognitive dissonance' and Jessica labeling it a 'User experience disaster' due to its 'negative framing.'",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 1,
+        "match_user_id": "user_jessica_chang_20857505"
+      },
+      {
+        "match_user_id": "user_dr_james_fletcher_7705216e",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 1,
+        "reason": "Both readers keenly observe the transactional nature of marriage in Austen's world and the logical inconsistencies in characters' behaviors. For instance, both dissect Darcy's first proposal, noting his 'cognitive dissonance' (Emma) and how 'pride poisons communication' (James) as he simultaneously expresses desire and contempt. They also resonate on the honesty of admitting uncertainty about the origins of love, seeing it as a 'slow build below awareness' (Emma) and 'phenomenologically accurate' (James).",
+        "book_id": "gutenberg_1342"
+      },
+      {
+        "match_user_id": "user_nathan_cooper_5fd9cc43",
+        "reason": "Emma and Nathan share a sharp, analytical lens on 'Pride and Prejudice.' They both critically dissect Darcy's proposal, noting the 'cognitive dissonance' and 'mixed messages' in his declaration of love, and similarly observe the gradual, unidentifiable nature of falling in love, where feelings accumulate 'below awareness' until a 'threshold is reached.'",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.95
+      },
+      {
+        "match_user_id": "user_priya_sharma_74036d21",
+        "reason": "Emma and Priya would connect over their shared analytical dissection of societal expectations and character psychology in *Pride and Prejudice*. They both critically examine how characters like Darcy sabotage themselves through flawed communication, with Emma noting his 'cognitive dissonance' and Priya calling his proposal the 'Worst pitch ever.' They'd also find common ground in questioning the initial societal assumptions about wealth and marriage, seeing the 'correlation treated as causation' (Emma) and a 'marketing mindset' (Priya) at play.",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.95
+      },
+      {
+        "match_user_id": "user_steven_park_eadeadc3",
+        "reason": "These two readers would connect over their shared critical lens on societal and personal logic. They both immediately pinpointed the 'terrible methodology' (Emma) and 'not sound reasoning' (Steven) in equating wealth with marriage desire in Passage 1. Their shared observation of Darcy's contradictory proposal in Passage 2, where Emma notes 'cognitive dissonance' and Steven calls it 'Love as structural failure,' demonstrates a deep intellectual resonance in deconstructing character motivations and narrative structures.",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.95
+      },
+      {
+        "source": "compatibility_run",
+        "verdict": "contradiction",
+        "confidence": 0.9,
+        "reason": "Emma and Marcus would find common ground in their critical examination of societal pressures and flawed human behavior in 'Pride and Prejudice.' Emma would dissect the logical fallacies behind initial marriage assumptions, while Marcus would highlight the empathetic toll of such societal projections. Their contrasting analytical and empathetic responses to Darcy's prideful first proposal would ignite a dynamic discussion, exploring both the internal inconsistencies of his actions and their profound social and emotional impact.",
+        "book_id": "gutenberg_1342",
+        "match_user_id": "user_marcus_williams_339afcfc"
+      },
+      {
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.9,
+        "reason": "Both readers dissect the logical and narrative flaws in Darcy's initial proposal, with Emma highlighting his 'cognitive dissonance' and Ethan seeing it as 'self-sabotage' and a 'communication breakdown.' They also both keenly observe the subtle, 'anti-cinematic' nature of Darcy's developing affection, contrasting it with societal expectations of dramatic love.",
+        "book_id": "gutenberg_1342",
+        "match_user_id": "user_ethan_brooks_06e8fc36"
+      },
+      {
+        "match_user_id": "user_zoe_anderson_ee63c7f9",
+        "source": "compatibility_run",
+        "verdict": "contradiction",
+        "confidence": 0.9,
+        "reason": "Emma dissects the logical flaws in societal assumptions about marriage and wealth, while Zoe observes the social dynamics and Austen's satirical take. Their contrasting analyses of Darcy's contradictory proposal\u2014Emma highlighting 'cognitive dissonance' and Zoe reacting with exasperation\u2014would spark a fascinating discussion on character psychology versus social commentary.",
+        "book_id": "gutenberg_1342"
+      },
+      {
+        "reason": "Emma and Daniel both dissect the underlying mechanics of 'Pride and Prejudice.' Emma would appreciate Daniel's observation that Darcy's proposal is 'self-defeating' due to its structure, while Daniel would find Emma's analysis of Darcy's 'cognitive dissonance' in the same passage to be a compelling psychological counterpart to his structural critique.",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "mirror",
+        "confidence": 0.9,
+        "match_user_id": "user_daniel_chen_fa018e7b"
+      },
+      {
+        "match_user_id": "user_benjamin_harris_15d28a99",
+        "reason": "Emma and Benjamin both dissect the logical flaws and societal pressures in *Pride and Prejudice*. For instance, they both critically analyze Darcy's \"In vain have I struggled\" proposal, seeing it not as romantic, but as a declaration of his own internal conflict and a self-centered assertion of superiority, rather than genuine affection.",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.9
+      },
+      {
+        "match_user_id": "user_marcus_johnson_c4d71121",
+        "reason": "Both Emma and Marcus are keenly critical of Darcy's initial proposal, with Emma dissecting its logical flaws and Marcus feeling the emotional weight of 'love suffocated by contempt.' However, they both find a shared appreciation for Darcy's later honesty about the organic, unquantifiable nature of falling in love, seeing depth in his admission of not knowing the exact 'when.'",
+        "book_id": "gutenberg_1342",
+        "source": "compatibility_run",
+        "verdict": "resonance",
+        "confidence": 0.9
+      },
+      {
+        "source": "compatibility_run",
+        "verdict": "contradiction",
+        "confidence": 0.9,
+        "reason": "Emma and Rachel both critically examine the societal pressures and flawed logic in 'Pride and Prejudice.' Emma dissects the 'cognitive dissonance' in Darcy's proposal and the 'correlation treated as causation' in marriage expectations, while Rachel focuses on the social implications, noting 'You can't insult someone and expect them to marry you' and the 'harsh but probably accurate' economic motivations for marriage. Their distinct analytical frameworks offer a strong basis for a rich, contradictory discussion.",
+        "book_id": "gutenberg_1342",
+        "match_user_id": "user_rachel_green_e391fe17"
+      },
+      {
+        "match_user_id": "user_ryan_oconnor_626bbc4a",
+        "source": "compatibility_run",
+        "verdict": "contradiction",
+        "confidence": 0.9,
+        "reason": "Both Emma and Ryan were struck by the logical inconsistencies in Darcy's proposal, with Emma dissecting the 'cognitive dissonance' of his words and Ryan simply declaring it the 'Worst proposal ever.' They also both noted the societal pressures around marriage and wealth in the opening, and Darcy's inability to pinpoint when he fell in love, though Emma saw it as a profound admission of self-ignorance while Ryan found the exchange 'cute.'",
+        "book_id": "gutenberg_1342"
+      }
+    ],
+    "last_updated": "2026-03-20T16:32:58.129581"
+  }
+]

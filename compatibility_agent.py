@@ -41,10 +41,27 @@ _COMPAT_SYSTEM_PROMPT = textwrap.dedent("""
     - The book_id being compared
     - Optionally: full reader portraits for both users (provided when the
       initial moment-based assessment yields low confidence)
+      
+    DIMENSIONS
+    THINK (how_they_read + interpretive_lens + central_preoccupation):
 
+    resonance:     same level of text, compatible frameworks, aligned position
+    contradiction: same level and framework, opposing positions on the same question
+    divergence:    different levels OR incommensurable frameworks
+
+    FEEL (what_moves_them + emotional_mode + self_referential):
+
+    resonance:     similar emotional triggers, compatible emotional modes
+    contradiction: prosecutorial paired with empathetic-victim
+    divergence:    different triggers OR one self-referential and one not
+
+    Your job is to investigate whether these two readers would have a meaningful
+    intellectual connection. Use get_user_interpretations to examine their actual
+    moments for this specific book before forming any verdict.
+    
     Reasoning steps — follow in order:
-    1. Read both moments carefully. Do they suggest fundamentally incompatible
-       readers? If yes, set verdict to "no_match" and stop.
+    1. Read both portraits carefully. Are they fundamentally incompatible?
+       If yes, set verdict to "no_match" and stop.
 
     2. If portraits are provided, use them to deepen your assessment —
        situate each moment within the broader reading style and thematic
@@ -52,16 +69,14 @@ _COMPAT_SYSTEM_PROMPT = textwrap.dedent("""
 
     3. Determine the nature of the connection:
        - resonance: similar emotional and intellectual stance toward the book
-       - mirror: opposite sides of the same dynamic (e.g. one identifies with
+       - contradiction: opposite sides of the same dynamic (e.g. one identifies with
          character A, the other with character B in the same conflict)
-       - contradiction: genuinely different interpretive frameworks that could
+       - divergence: genuinely different interpretive frameworks that could
          produce productive tension
        - no_match: no meaningful basis for connection
 
     4. Assign a confidence score (0.0–1.0) reflecting how strongly the evidence
-       supports your verdict. Moments alone are thin evidence — be conservative.
-       Portraits significantly increase the evidential base; raise confidence
-       accordingly when they confirm or refine the moment-level signal.
+       supports your verdict.
 
     5. Write an insight — 2-3 sentences a real user would see. Be specific.
        Reference the actual moments or portrait details. Do not be generic.
@@ -71,9 +86,9 @@ _COMPAT_SYSTEM_PROMPT = textwrap.dedent("""
     Keys: verdict, confidence, reasoning, insight.
 """)
 
-_COMPAT_REQUIRED_KEYS = {"verdict", "confidence", "reasoning", "insight"}
 
-
+_COMPAT_REQUIRED_KEYS = {"think_dimension", "feel_dimension",
+                         "verdict", "confidence", "reasoning", "insight"}
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _ensure_portrait(user_id: str) -> dict:
@@ -221,18 +236,20 @@ def run_compatibility_agent(user_a_id: str,
     result["timestamp"] = datetime.utcnow().isoformat()
 
     log_compatibility_run({
-        "user_a":      user_a_id,
-        "user_b":      user_b_id,
-        "book_id":     book_id,
-        "moment_a_id":   moment_a.get("interpretation_id"),
-        "moment_b_id":   moment_b.get("interpretation_id"),
-        "verdict":     result.get("verdict"),
-        "confidence":  result.get("confidence"),
-        "reasoning":   result.get("reasoning"),
-        "insight":     result.get("insight"),
-        "pass":        passes,
-        "timestamp":   result["timestamp"],
+        "user_a":           user_a_id,
+        "user_b":           user_b_id,
+        "book_id":          book_id,
+        "moment_a":       moment_a,
+        "moment_b":       moment_b,
+        "think_dimension":  result.get("think_dimension"),
+        "feel_dimension":   result.get("feel_dimension"),
+        "verdict":          result.get("verdict"),
+        "confidence":       result.get("confidence"),
+        "reasoning":        result.get("reasoning"),
+        "insight":          result.get("insight"),
+        "timestamp":        result["timestamp"],
     })
+
 
     print(
         f"[CompatAgent] verdict={result.get('verdict')} "
@@ -355,16 +372,15 @@ def run_compatibility_for_all(user_a_id: str,
                 results.append(existing)
             continue
 
-        result = run_compatibility_agent(
-            user_a_id, user_b_id, book_id, moment_a, moment_b
-        )
-        route          = route_compatibility_result(result)
+        result = run_compatibility_agent(user_a_id, user_b_id, book_id,moment_a,moment_b)
+        route  = route_compatibility_result(result)
         result["route"] = route
 
         print(f"  {user_b_id}")
         print(f"    verdict={result.get('verdict')}  "
+              f"think={result.get('think_dimension')}  "
+              f"feel={result.get('feel_dimension')}  "
               f"confidence={result.get('confidence')}  "
-              f"pass={result.get('pass')}  "
               f"route={route}")
         if route != "discard":
             print(f"    insight: {result.get('insight')}")
@@ -373,13 +389,17 @@ def run_compatibility_for_all(user_a_id: str,
         if route != "discard":
             results.append(result)
 
+
     results.sort(key=lambda r: r.get("confidence", 0.0), reverse=True)
 
     print(f"── Match pool for {user_a_id} ───────────────────────────────")
     print(f"   {len(results)} matches from {len(other_users)} candidates\n")
     for r in results:
         print(f"  [{r['route'].upper()}] {r['user_b']} "
-              f"— {r['verdict']} ({r['confidence']}) [pass {r.get('pass')}]")
+              f"— {r['verdict']} "
+              f"(think={r.get('think_dimension')} "
+              f"feel={r.get('feel_dimension')} "
+              f"conf={r.get('confidence')})")
         print(f"    {r.get('insight')}\n")
 
     return results
@@ -406,17 +426,17 @@ if __name__ == "__main__":
     print(json.dumps(matches, indent=2))
     
     
-with open("data/processed/moments_processed.json") as f:
+with open("data/processed/frankenstein_all_passages_final.json") as f:
     moments = json.load(f)
 
-ANCHOR_USER = "user_emma_chen_fd5e3def"
-PASSAGE_ID  = "gutenberg_84_passage_1"
-BOOK_ID     = "gutenberg_84"
+ANCHOR_USER = "Emma Chen"
+PASSAGE_ID  = "passage_1"
+BOOK_ID     = 1
 
 # find emma's moment for this passage
 anchor_moment = next(
     (m for m in moments
-     if m["user_id"] == ANCHOR_USER and m["passage_id"] == PASSAGE_ID),
+     if m["character_name"] == ANCHOR_USER and m["passage_id"] == PASSAGE_ID),
     None
 )
 

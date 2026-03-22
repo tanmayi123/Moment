@@ -1,0 +1,11 @@
+{
+  "think_f1_weighted": 0.7870869392303772,
+  "feel_f1_weighted": 0.7306284827467093,
+  "think_ndcg": 3.4512998140841087,
+  "feel_ndcg": 2.6670642057629066,
+  "best_think_f1": 0.8047517733620536,
+  "best_feel_f1": 0.7306284827467093,
+  "train_size": 978,
+  "test_size": 245,
+  "epochs": 30
+}

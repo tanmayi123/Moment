@@ -32,7 +32,7 @@ PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "moment-486719")
 REGION     = os.environ.get("GCP_REGION",     "us-central1")
 BUCKET     = os.environ.get("GCS_BUCKET",     "gs://moment-agent-data")
 
-vertexai.init(project=PROJECT_ID, location=REGION)
+vertexai.init(project=PROJECT_ID, location=REGION, staging_bucket=BUCKET)
 
 REQUIREMENTS = [
     "google-cloud-aiplatform[agent_engines]",

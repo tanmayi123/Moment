@@ -27,7 +27,6 @@ import warnings
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from sklearn.metrics import accuracy_score, f1_score
 from fairlearn.metrics import MetricFrame
@@ -369,8 +368,6 @@ def analyse_slice(df, slice_col, dim, output_dir, report):
             drop = overall_f1 - flagged.loc[grp, "f1_macro"]
             report.append(f"- {grp}: F1 {flagged.loc[grp, 'f1_macro']:.3f} (drop: {drop:.3f})\n")
 
-    _save_plot(by_group, slice_col, dim_name, overall_f1, output_dir)
-
     return {
         "dimension":   dim_name,
         "slice":       slice_col,
@@ -515,38 +512,6 @@ def document_mitigation(findings, report):
         report.append(f"- **[{f['dimension']}] {f['slice']}** — "
                       f"Overall F1: {f['overall_f1']:.3f}, "
                       f"{len(f['flagged'])} group(s) flagged\n")
-
-
-# ============================================================
-# PLOT
-# ============================================================
-def _save_plot(by_group, slice_col, dim_name, overall_f1, output_dir):
-    n = len(by_group)
-    fig, ax = plt.subplots(figsize=(max(6, n * 0.8 + 2), 4))
-
-    colors = [
-        "salmon" if v < overall_f1 - BIAS_FLAG_F1 else "steelblue"
-        for v in by_group["f1_macro"]
-    ]
-    ax.bar(by_group.index.astype(str), by_group["f1_macro"], color=colors)
-    ax.axhline(overall_f1, color="black", linestyle="--", linewidth=1.2,
-               label=f"Overall F1 ({overall_f1:.2f})")
-    ax.axhline(overall_f1 - BIAS_FLAG_F1, color="red", linestyle=":", linewidth=1,
-               label=f"Bias threshold ({overall_f1 - BIAS_FLAG_F1:.2f})")
-    ax.set_title(f"[{dim_name}] Model F1 by {slice_col}")
-    ax.set_xlabel(slice_col)
-    ax.set_ylabel("Macro F1")
-    ax.set_ylim(0, 1.05)
-    ax.legend()
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-
-    fname = f"bias_{dim_name.lower()}_{slice_col}.png"
-    path  = os.path.join(output_dir, fname)
-    plt.savefig(path, dpi=150)
-    plt.close()
-    logger.info(f"  Saved → {path}")
-
 
 # ============================================================
 # SUMMARY

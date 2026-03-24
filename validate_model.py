@@ -18,7 +18,8 @@ VALIDATION_THRESHOLDS = {
     "schema_pass_rate":          0.95,   # 95% of outputs must pass schema check
     "confidence_in_range_rate":  0.95,   # 95% must have confidence in [0.20, 0.95]
     "mean_confidence_min":       0.40,   # average confidence must be at least 0.40
-    "rcd_sum_pass_rate":         1.00,   # 100% of R+C+D must sum to 100 (non-negotiable)
+    "rcd_think_pass_rate":       1.00,
+    "rcd_feel_pass_rate":        1.00    # 100% of R+C+D must sum to 100 (non-negotiable)
 }
 
 VALID_DOMINANT_LABELS = {"resonate", "contradict", "diverge"}

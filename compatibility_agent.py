@@ -259,11 +259,8 @@ def run_compatibility_agent(user_a_id: str,
 
     # ── Aggregate (pure Python) ───────────────────────────────────────────────
     # wrap the two separate decompositions into the shape aggregate() expects
-    combined_decomp = {
-        "reader_a": decomp_a,
-        "reader_b": decomp_b,
-    }
-    result = aggregate(combined_decomp, scoring)
+
+    result = aggregate(decomp_a, decomp_b, scoring, book_id,passage_id)
     print(f"[CompatAgent] confidence={result.get('confidence', 0.0)}")
 
     # ── Attach metadata and log ───────────────────────────────────────────────

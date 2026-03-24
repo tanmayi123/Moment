@@ -12,6 +12,8 @@ on:
       - "model_interface.py"
       - "aggregate.py"
       - "aggregator.py"
+      - "compatibility_agent.py"      
+      - "decomposing_agent.py" 
       - "validate_model.py"
       - "bias_detection.py"
       - "rollback.py"

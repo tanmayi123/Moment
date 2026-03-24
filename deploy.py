@@ -38,8 +38,18 @@ REQUIREMENTS = [
     "google-cloud-aiplatform[agent_engines]",
     "google-genai",
     "google-cloud-storage",
+    "python-dotenv",
+    "pydantic==2.12.5",
+    "cloudpickle==3.1.2",
 ]
 
+LOCAL_PACKAGES = [
+    "tools.py",
+    "decomposing_agent.py",
+    "compatibility_agent.py",
+    "aggregator.py",
+    "model_interface.py",
+]
 
 # ── Agent 1: Decompose ────────────────────────────────────────────────────────
 
@@ -136,6 +146,7 @@ def deploy_all():
     decompose_remote = agent_engines.create(
         DecomposeAgentApp(),
         requirements=REQUIREMENTS,
+        extra_packages=LOCAL_PACKAGES,
         display_name="momento-decompose-agent",
     )
     print(f"Decompose Agent deployed:      {decompose_remote.resource_name}")
@@ -143,6 +154,7 @@ def deploy_all():
     compat_remote = agent_engines.create(
         CompatibilityAgentApp(),
         requirements=REQUIREMENTS,
+        extra_packages=LOCAL_PACKAGES,
         display_name="momento-compatibility-agent",
     )
     print(f"Compatibility Agent deployed:  {compat_remote.resource_name}")
@@ -150,6 +162,7 @@ def deploy_all():
     profile_remote = agent_engines.create(
         ProfileAgentApp(),
         requirements=REQUIREMENTS,
+        extra_packages=LOCAL_PACKAGES,
         display_name="momento-profile-agent",
     )
     print(f"Profile Agent deployed:        {profile_remote.resource_name}")

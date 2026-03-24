@@ -1,0 +1,356 @@
+[
+  {
+    "dimension": "Think",
+    "slice": "gender",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "gender": "Female",
+        "accuracy": 0.988759187202767,
+        "f1_macro": 0.9800855570078024
+      },
+      {
+        "gender": "Male",
+        "accuracy": 0.9925983638488508,
+        "f1_macro": 0.9881901514896335
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Think",
+    "slice": "age_group",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "age_group": "18-24 (Gen Z)",
+        "accuracy": 0.9884615384615385,
+        "f1_macro": 0.9803826248257627
+      },
+      {
+        "age_group": "25-34 (Millennial)",
+        "accuracy": 0.9903677758318739,
+        "f1_macro": 0.9836092054796217
+      },
+      {
+        "age_group": "35-44 (Gen X/Mill)",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "age_group": "45+ (Gen X/Boom)",
+        "accuracy": 0.9798534798534798,
+        "f1_macro": 0.9641971402399605
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Think",
+    "slice": "personality",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "personality": "Analytical",
+        "accuracy": 0.9925756710451171,
+        "f1_macro": 0.987681781463321
+      },
+      {
+        "personality": "Emotional",
+        "accuracy": 0.9878787878787879,
+        "f1_macro": 0.9791619499643122
+      },
+      {
+        "personality": "Narrative",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "personality": "Philosophical",
+        "accuracy": 0.9860557768924303,
+        "f1_macro": 0.9750575845914818
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Think",
+    "slice": "reader_type",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "reader_type": "ACCIDENTAL",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "DELIBERATE",
+        "accuracy": 0.9814814814814815,
+        "f1_macro": 0.9666114789507657
+      },
+      {
+        "reader_type": "HABITUAL",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "NEW READER",
+        "accuracy": 0.9906176700547302,
+        "f1_macro": 0.984349952883103
+      },
+      {
+        "reader_type": "PROJECT",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "SOCIAL",
+        "accuracy": 0.9879154078549849,
+        "f1_macro": 0.9792827407630883
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Think",
+    "slice": "book",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "book": "Frankenstein",
+        "accuracy": 0.9926108374384236,
+        "f1_macro": 0.9915769999017935
+      },
+      {
+        "book": "Pride and Prejudice",
+        "accuracy": 0.9844006568144499,
+        "f1_macro": 0.949686541869193
+      },
+      {
+        "book": "The Great Gatsby",
+        "accuracy": 0.9860541427399507,
+        "f1_macro": 0.969803746784704
+      },
+      {
+        "book": "overall",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Think",
+    "slice": "passage",
+    "overall_f1": 0.9844987910365571,
+    "overall_acc": 0.9907786885245902,
+    "by_group": [
+      {
+        "passage": "overall",
+        "accuracy": 0.9907786885245902,
+        "f1_macro": 0.9844987910365571
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "think_label",
+    "score_col": "think_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "gender",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "gender": "Female",
+        "accuracy": 0.9857328145265889,
+        "f1_macro": 0.9807319416731048
+      },
+      {
+        "gender": "Male",
+        "accuracy": 0.991819244253993,
+        "f1_macro": 0.9893130145617611
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "age_group",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "age_group": "18-24 (Gen Z)",
+        "accuracy": 0.989423076923077,
+        "f1_macro": 0.9860799715404088
+      },
+      {
+        "age_group": "25-34 (Millennial)",
+        "accuracy": 0.9864273204903677,
+        "f1_macro": 0.9827209788053507
+      },
+      {
+        "age_group": "35-44 (Gen X/Mill)",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "age_group": "45+ (Gen X/Boom)",
+        "accuracy": 0.978021978021978,
+        "f1_macro": 0.9688339959982483
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "personality",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "personality": "Analytical",
+        "accuracy": 0.9885779554540263,
+        "f1_macro": 0.9857781603666101
+      },
+      {
+        "personality": "Emotional",
+        "accuracy": 0.9878787878787879,
+        "f1_macro": 0.983819031210805
+      },
+      {
+        "personality": "Narrative",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "personality": "Philosophical",
+        "accuracy": 0.9840637450199203,
+        "f1_macro": 0.9755907937492457
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "reader_type",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "reader_type": "ACCIDENTAL",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "DELIBERATE",
+        "accuracy": 0.9748148148148148,
+        "f1_macro": 0.9642828402229261
+      },
+      {
+        "reader_type": "HABITUAL",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "NEW READER",
+        "accuracy": 0.9913995308835027,
+        "f1_macro": 0.9891407591167107
+      },
+      {
+        "reader_type": "PROJECT",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      },
+      {
+        "reader_type": "SOCIAL",
+        "accuracy": 0.986404833836858,
+        "f1_macro": 0.9787417350635742
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "book",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "book": "Frankenstein",
+        "accuracy": 0.9901477832512315,
+        "f1_macro": 0.9890797702118966
+      },
+      {
+        "book": "Pride and Prejudice",
+        "accuracy": 0.9819376026272578,
+        "f1_macro": 0.9581373762761406
+      },
+      {
+        "book": "The Great Gatsby",
+        "accuracy": 0.9835931091058244,
+        "f1_macro": 0.9753575024178137
+      },
+      {
+        "book": "overall",
+        "accuracy": 1.0,
+        "f1_macro": 1.0
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  },
+  {
+    "dimension": "Feel",
+    "slice": "passage",
+    "overall_f1": 0.9854890330284309,
+    "overall_acc": 0.9889344262295082,
+    "by_group": [
+      {
+        "passage": "overall",
+        "accuracy": 0.9889344262295082,
+        "f1_macro": 0.9854890330284309
+      }
+    ],
+    "flagged": [],
+    "bias_status": "NO BIAS",
+    "label_col": "feel_label",
+    "score_col": "feel_R"
+  }
+]

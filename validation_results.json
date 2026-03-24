@@ -1,0 +1,62 @@
+{
+  "think": {
+    "axis": "think",
+    "accuracy": 0.36363636363636365,
+    "macro_f1": 0.35656902731429985,
+    "macro_auc": 0.7446701318229096,
+    "per_class": {
+      "resonate": {
+        "precision": 0.2608695652173913,
+        "recall": 1.0,
+        "f1": 0.41379310344827586
+      },
+      "contradict": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.3333333333333333
+      },
+      "diverge": {
+        "precision": 1.0,
+        "recall": 0.19230769230769232,
+        "f1": 0.3225806451612903
+      }
+    }
+  },
+  "feel": {
+    "axis": "feel",
+    "accuracy": 0.12121212121212122,
+    "macro_f1": 0.09960384833050367,
+    "macro_auc": 0.40855930335097,
+    "per_class": {
+      "resonate": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "contradict": {
+        "precision": 0.07142857142857142,
+        "recall": 0.2,
+        "f1": 0.10526315789473684
+      },
+      "diverge": {
+        "precision": 0.75,
+        "recall": 0.1111111111111111,
+        "f1": 0.1935483870967742
+      }
+    }
+  },
+  "confidence": [
+    {
+      "confidence_bin": "low (0-0.5)",
+      "count": 7,
+      "think_accuracy": 0.571,
+      "feel_accuracy": 0.429
+    },
+    {
+      "confidence_bin": "medium (0.5-0.75)",
+      "count": 26,
+      "think_accuracy": 0.308,
+      "feel_accuracy": 0.038
+    }
+  ]
+}

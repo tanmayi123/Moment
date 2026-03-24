@@ -1,0 +1,2522 @@
+[
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_2",
+    "dominant_think": "contradict",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Frankenstein",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_1",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_2",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "Pride and Prejudice",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Marcus Williams",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Sophia Patel",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "David Kim",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Aisha Thompson",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ryan O'Connor",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Emma Chen",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Sophia Patel",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "David Kim",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Aisha Thompson",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ryan O'Connor",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Marcus Williams",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "David Kim",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Aisha Thompson",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ryan O'Connor",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Sophia Patel",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "contradict",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Aisha Thompson",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ryan O'Connor",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "David Kim",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ryan O'Connor",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Aisha Thompson",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Isabella Rodriguez",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Ryan O'Connor",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Jake Morrison",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "resonate",
+    "dominant_feel": "contradict"
+  },
+  {
+    "user_a": "Isabella Rodriguez",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "resonate"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Maya Singh",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Jake Morrison",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  },
+  {
+    "user_a": "Maya Singh",
+    "user_b": "Ethan Brooks",
+    "book_id": "The Great Gatsby",
+    "passage_id": "passage_3",
+    "dominant_think": "diverge",
+    "dominant_feel": "diverge"
+  }
+]

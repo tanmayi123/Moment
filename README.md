@@ -46,120 +46,60 @@ This repository contains the **Data Pipeline (Assignment 1)**. It implements eve
 
 ---
 
-## 1. Repository Structure
-
-Organised following the folder structure from the assignment guidelines, modelled after production open-source Python projects such as [scikit-learn](https://github.com/scikit-learn/scikit-learn).
+## 1. RepositorOrganised following the folder structure from the assignment guidelines, modelled after production open-source Python projects such as [scikit-learn](https://github.com/scikit-learn/scikit-learn).
 
 ```
 Moment/                                      ← Project Root
 │
 ├── data_pipeline/                           ← Main pipeline directory
-│   │
-│   ├── dags/                                ← Airflow DAGs
-│   │   ├── data_pipeline_dag.py             ← Main pipeline DAG (moment_data_pipeline)
-│   │   └── tests_dag.py                     ← Tests DAG (moment_pipeline_tests)
-│   │
-│   ├── data/                                ← All data files
-│   │   ├── raw/
-│   │   │   ├── pdfs/                        ← Source passage PDFs
-│   │   │   │   ├── 0.Character traits - 50.pdf
-│   │   │   │   ├── 1.Frankenstein/
-│   │   │   │   │   ├── Frankenstein_Passage_1_SELECTABLE.pdf
-│   │   │   │   │   ├── Frankenstein_Passage_2_SELECTABLE.pdf
-│   │   │   │   │   └── Frankenstein_Passage_3_SELECTABLE.pdf
-│   │   │   │   ├── 2.Pride and Prejudice/
-│   │   │   │   │   ├── Pride_and_Prejudice_Passage_1_SELECTABLE.pdf
-│   │   │   │   │   ├── Pride_and_Prejudice_Passage_2_SELECTABLE.pdf
-│   │   │   │   │   └── Pride_and_Prejudice_Passage_3_SELECTABLE.pdf
-│   │   │   │   └── 3.The Great Gatsby/
-│   │   │   │       ├── Gatsby_Passage_1_SELECTABLE.pdf
-│   │   │   │       ├── Gatsby_Passage_2_SELECTABLE.pdf
-│   │   │   │       └── Gatsby_Passage_3_SELECTABLE.pdf
-│   │   │   ├── csvs_jsons/
-│   │   │   │   ├── all_interpretations_450_FINAL_NO_BIAS.json
-│   │   │   │   ├── characters.csv
-│   │   │   │   ├── passages.csv
-│   │   │   │   ├── passages.json
-│   │   │   │   ├── interpretations.json
-│   │   │   │   └── user_interpretations.csv
-│   │   │   ├── books.json
-│   │   │   ├── user_data.csv
-│   │   │   ├── user_interpretations.json
-│   │   │   └── passage_details.csv
-│   │   ├── processed/                       ← DVC-tracked preprocessed outputs
-│   │   │   ├── books_processed.json
-│   │   │   ├── moments_processed.json
-│   │   │   └── users_processed.json
-│   │   └── reports/                         ← DVC-tracked pipeline reports
-│   │       ├── bias_report_FINAL.md
-│   │       ├── schema_stats.json
-│   │       ├── validation_report.json
-│   │       └── notification.txt             ← Anomaly alert log
-│   │
-│   ├── scripts/                             ← One script per pipeline stage
-│   │   ├── __init__.py
-│   │   ├── data_acquisition.py              ← Stage 1
-│   │   ├── preprocessor.py                  ← Stage 2
-│   │   ├── feature_engineering.py           ← Stage 3
-│   │   ├── validation.py                    ← Stage 4
-│   │   ├── anomalies.py                     ← Stage 5
-│   │   ├── bias_detection.py                ← Stage 6
-│   │   ├── generate_schema_stats.py         ← Stage 7 (TFDV)
-│   │   ├── generate_html_report.py          ← Stage 8
-│   │   ├── generate_enhanced_dashboard.py   ← Stage 9
-│   │   ├── run.py                           ← Runs all stages in sequence
-│   │   └── utils.py                         ← Shared utilities
-│   │
-│   ├── tests/                               ← Unit and integration tests
-│   │   ├── test_acquisition.py
-│   │   ├── test_preprocessing.py
-│   │   ├── test_validation.py
-│   │   ├── test_schema_stats.py
-│   │   ├── test_bias_detection.py
-│   │   └── test_pipeline.py
-│   │
-│   ├── logs/                                ← Pipeline execution logs
-│   │   └── pipeline.log
-│   │
-│   ├── config/
-│   │   ├── config.yaml                      ← Global pipeline config
-│   │   ├── preprocessing_config.yaml        ← Preprocessing rules & thresholds
-│   │   └── schema.yaml                      ← Data schema definition
-│   │
-│   └── preprocessing/                       ← Standalone preprocessing module
-│       ├── pipeline/
-│       │   ├── __init__.py
-│       │   ├── preprocessor.py
-│       │   └── anomalies.py
-│       ├── data/
-│       │   ├── raw/
-│       │   └── processed/
-│       ├── config.yaml
-│       ├── requirements.txt
-│       ├── run.py
-│       └── test_pipeline.py
+│   ├── airflow/
+│   │   └── dags/                            ← Airflow DAGs
+│   │       ├── data_pipeline_dag.py         ← Main pipeline DAG (moment_data_pipeline)
+│   │       └── tests_dag.py                 ← Tests DAG (moment_pipeline_tests)
+│   ├── config/                              ← Global & stage-specific config
+│   ├── scripts/                             ← Individual pipeline stages (Stages 1-9)
+│   ├── tests/                               ← Pipeline unit tests
+│   └── logs/                                ← Execution logs
 │
-├── bias_detection/                          ← Standalone bias detection module
-│   ├── bias_detection.py
-│   ├── test_bias_detection.py
-│   └── all_interpretations_450_FINAL_NO_BIAS.json
-│
-├── data/                                    ← Root-level extraction scripts
-│   ├── character_extraction.py
-│   ├── data_extraction.py
-│   └── remove_new_lines.py
+├── data/                                    ← Central data repository
+│   ├── raw/                                 ← Source PDFs and raw JSON/CSV
+│   ├── processed/                           ← DVC-tracked processed data
+│   ├── reports/                             ← TFDV & Bias reports
+│   ├── schemas/                             ← TFDV schema definitions
+│   ├── bias_results/                        ← Slicing analysis outputs
+│   ├── character_extraction.py              ← Persona extraction script
+│   └── data_extraction.py                   ← Synthetic data generator
 │
 ├── models/
-│   └── training.py                          ← Model training (Assignment 2)
+│   └── training.py                          ← Model training logic
 │
-├── .dvc/                                    ← DVC config — committed to Git
-│   ├── .gitignore
-│   └── config
-├── .dvcignore
-├── .github/
-│   └── workflows/
-│       └── config.yaml                      ← GitHub Actions CI/CD
-├── .gitignore
+├── tests/                                   ← Integration and system tests
+│
+├── decomposing_agent.py                     ← Agent: Interpretation decomposition
+├── compatibility_agent.py                   ← Agent: Reader compatibility matching
+├── recommendation_agent.py                  ← Agent: Content recommendation
+├── aggregator.py                            ← Agent: Result aggregation
+│
+├── validate_model.py                        ← Model validation pipeline
+├── run_validation_set.py                    ← Validation set runner
+├── deploy.py                                ← GCP/Production deployment script
+├── rollback.py                              ← Deployment rollback utility
+├── notifications.py                         ← Alert and notification system
+│
+├── interpretation_ingestion.py              ← Data ingestion interface
+├── model_interface.py                       ← Unified model API
+├── tools.py                                 ← General utility functions
+├── bias_detection.py                        ← Root-level bias analysis
+│
+├── .dvc/                                    ← DVC configuration
+├── .github/workflows/                       ← GitHub Actions CI/CD
+├── docker-compose.yaml                      ← Airflow & Database orchestration
+├── Dockerfile                               ← Custom Airflow/ML image
+├── dvc.yaml                                 ← DVC pipeline definitions
+├── conftest.py                              ← Shared test fixtures
+└── requirements.txt                         ← Environment dependencies
+```
+� .gitignore
 ├── conftest.py                              ← Root pytest config & shared fixtures
 ├── docker-compose.yaml                      ← Airflow + postgres (Docker)
 ├── Dockerfile                               ← Custom Airflow image with TFDV
@@ -1046,12 +986,53 @@ response = _gemini_client.models.generate_content(
 
 ## 26. Experiment Tracking
 
-**Tool:** `MLflow` / `Weights & Biases`
+**Tool:** `MLflow`
+
+![MLflow Runs](docs/mlflow_runs1.jpeg)
+
+![MLflow Runs](docs/mlflow_runs2.jpeg)
+
+![MLflow Runs](docs/mlflow_runs3.jpeg)
+
+![MLflow Runs](docs/mlflow_runs4.jpeg)
 
 To ensure full provenance and reproducibility, every refined prompt and parameter change is tracked as a unique experiment.
 
-- **Tracking Metrics**: We log the `mean_confidence` and `gate_pass_rate` from each validation run.
-- **Parameters**: Prompt version IDs and LLM temperatures are recorded to correlate changes in instructions with changes in performance.
+### How the pipeline maps to MLflow runs
+Each compatibility pair produces a parent run with two nested child runs:
+```text
+parent run  →  Emma Chen × Marcus Williams | Frankenstein / passage_1
+    ├── child run  →  decomp_reader_a_Emma Chen
+    └── child run  →  decomp_reader_b_Marcus Williams
+```
+
+#### Parent run logs:
+- **params**: `user_a`, `user_b`, `book_id`, `passage_id`, `model_name`, `temperature`, `prompt_version`
+- **metrics**: `confidence`, `match_count`, `think_R/C/D`, `feel_R/C/D`
+- **tags**: `dominant_think`, `dominant_feel`, `route`, `verdict`
+- **artifact**: full result JSON
+
+#### Child run (per decomposition) logs:
+- **params**: `user_id`, `passage_id`, `book_id`, `reader_label`
+- **metrics**: `subclaim_count`, `weight_entropy`, `weight_min/max`
+- **tags**: `emotional_modes`, `dominant_mode`
+- **artifact**: full decomposition JSON
+
+### Setup
+```bash
+pip install mlflow pyyaml
+```
+
+### Running
+**Replay mode** — logs your existing JSON files to MLflow, no Gemini calls:
+```bash
+python experiment_tracking/run_experiment.py --replay
+```
+
+**Live mode** — runs the full pipeline through Gemini agents:
+```bash
+python experiment_tracking/run_experiment.py
+```
 
 **Conceptual Integration Snippet:**
 ```python
@@ -1113,6 +1094,8 @@ docker push ${{ env.REGISTRY }}/compat-agent:latest
 
 **File:** `.github/workflows/cicd.yml`
 
+![CI/CD Pipeline](docs/cicd_pipeline.jpeg)
+
 The CI/CD pipeline enforces a "No Regression" policy. A push to `main` triggers a 5-stage workflow that only reaches deployment if every quality gate is passed.
 
 **Workflow Stages:**
@@ -1120,6 +1103,7 @@ The CI/CD pipeline enforces a "No Regression" policy. A push to `main` triggers 
 2.  **Stage 2: Validate**: Runs `run_validation_set.py` → `validate_model.py`.
 3.  **Stage 3: Build & Push**: Compiles images and pushes to Artifact Registry.
 4.  **Stage 4: Rollback Check**: Runs `rollback.py` to compare metrics against a stored baseline.
+5.  **Stage 5: Deploy**: Deploys to Vertex AI if all checks pass.
 
 ---
 

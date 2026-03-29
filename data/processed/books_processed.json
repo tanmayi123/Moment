@@ -19,7 +19,7 @@
       "avg_sentence_length": 29.0,
       "readability_score": 49.55
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   },
   {
     "book_id": "gutenberg_84",
@@ -41,7 +41,7 @@
       "avg_sentence_length": 22.29,
       "readability_score": 69.25
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   },
   {
     "book_id": "gutenberg_84",
@@ -63,13 +63,13 @@
       "avg_sentence_length": 24.43,
       "readability_score": 56.87
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   },
   {
     "book_id": "gutenberg_64317",
     "passage_id": "gutenberg_64317_passage_1",
     "book_title": "The Great Gatsby",
-    "book_author": "F. Scott (Francis Scott) Fitzgerald",
+    "book_author": "F. Scott Fitzgerald",
     "chapter_number": "1",
     "passage_title": "The Green Light",
     "passage_number": 1,
@@ -85,13 +85,13 @@
       "avg_sentence_length": 29.33,
       "readability_score": 59.78
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   },
   {
     "book_id": "gutenberg_64317",
     "passage_id": "gutenberg_64317_passage_2",
     "book_title": "The Great Gatsby",
-    "book_author": "F. Scott (Francis Scott) Fitzgerald",
+    "book_author": "F. Scott Fitzgerald",
     "chapter_number": "7",
     "passage_title": "Her Voice is Full of Money",
     "passage_number": 2,
@@ -107,13 +107,13 @@
       "avg_sentence_length": 9.0,
       "readability_score": 82.21
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   },
   {
     "book_id": "gutenberg_64317",
     "passage_id": "gutenberg_64317_passage_3",
     "book_title": "The Great Gatsby",
-    "book_author": "F. Scott (Francis Scott) Fitzgerald",
+    "book_author": "F. Scott Fitzgerald",
     "chapter_number": "9",
     "passage_title": "Boats Against the Current",
     "passage_number": 3,
@@ -129,6 +129,6 @@
       "avg_sentence_length": 19.71,
       "readability_score": 77.7
     },
-    "timestamp": "2026-02-25T00:00:53"
+    "timestamp": "2026-03-28T23:48:51"
   }
 ]

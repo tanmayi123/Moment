@@ -110,8 +110,8 @@ def run_live(config: dict, book_filter: str | None, passage_filter: str | None) 
     Run the full pipeline (decompose → score → aggregate) for each pair
     and log results to MLflow as they complete.
     """
-    from compatibility_agent import run_compatibility_agent
-    from decomposing_agent import DECOMPOSITIONS_FILE
+    from models.compatibility_agent import run_compatibility_agent
+    from models.decomposing_agent import DECOMPOSITIONS_FILE
     from tools import _read_json_file
 
     data_cfg = config["data"]

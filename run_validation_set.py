@@ -21,7 +21,7 @@ import os
 import sys
 from datetime import datetime
 
-from model_interface import run_compatibility_pipeline
+from cicd_pipeline.model_interface import run_compatibility_pipeline
 
 # ── Held-out validation set ───────────────────────────────────────────────────
 # Drawn from interpretations_10_users.json.

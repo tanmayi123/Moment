@@ -1,25 +1,24 @@
 import os
 import json
+import logging
+import pandas as pd
 from google import genai
-from google.genai import types # type: ignore
+from google.genai import types  # type: ignore
 
-from tools import extract_json, _read_json_file, _write_json_file
+from tools import extract_json
 
-from bq_loader import (
-    get_bq_client,
-    load_raw_from_bq,
-    write_processed_to_bq,
-    PROC_DATASET,
-)
-bq_client = get_bq_client()
+# ── Logging ───────────────────────────────────────────────────────────────────
 
+logger = logging.getLogger("momento.decomposer")
 
 # ── Config ────────────────────────────────────────────────────────────────────
+
+BQ_PROJECT = os.environ.get("GOOGLE_CLOUD_PROJECT", "moment-486719")
 
 _api_key = os.environ.get("GEMINI_API_KEY_MOMENT")
 if not _api_key:
     try:
-        from dotenv import load_dotenv # type: ignore
+        from dotenv import load_dotenv  # type: ignore
         load_dotenv()
         _api_key = os.environ.get("GEMINI_API_KEY_MOMENT")
     except ImportError:
@@ -32,6 +31,57 @@ if not _api_key:
 
 _gemini_client = genai.Client(api_key=_api_key)
 _GEMINI_MODEL  = "gemini-2.5-flash"
+
+# ── BQ Helpers ────────────────────────────────────────────────────────────────
+
+def _bq_client():
+    from google.cloud import bigquery
+    return bigquery.Client(project=BQ_PROJECT)
+
+def staging_dataset(run_id: str) -> str:
+    safe = (run_id.replace("-", "_").replace(":", "_")
+                  .replace("+", "_").replace(".", "_").replace("T", "_"))
+    return f"moments_staging_{safe}"[:1024]
+
+def bq_table_id(run_id: str, table: str) -> str:
+    return f"{BQ_PROJECT}.{staging_dataset(run_id)}.{table}"
+
+def ensure_staging_dataset(run_id: str):
+    from google.cloud import bigquery
+    client = _bq_client()
+    ds_id  = f"{BQ_PROJECT}.{staging_dataset(run_id)}"
+    ds     = bigquery.Dataset(ds_id)
+    ds.location = "US"
+    client.create_dataset(ds, exists_ok=True)
+    logger.debug(f"Staging dataset ready: {ds_id}")
+
+def bq_write(df: pd.DataFrame, table_id: str):
+    from google.cloud import bigquery
+    job = _bq_client().load_table_from_dataframe(
+        df, table_id,
+        job_config=bigquery.LoadJobConfig(
+            write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+            autodetect=True,
+        ),
+    )
+    job.result()
+    logger.debug(f"Wrote {len(df)} rows → {table_id}")
+
+def bq_read(table_id: str) -> pd.DataFrame:
+    df = _bq_client().query(f"SELECT * FROM `{table_id}`").to_dataframe()
+    logger.debug(f"Read {len(df)} rows ← {table_id}")
+    return df
+
+def bq_copy_table(src: str, dst: str):
+    from google.cloud import bigquery
+    job = _bq_client().copy_table(
+        src, dst,
+        job_config=bigquery.CopyJobConfig(
+            write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+        ),
+    )
+    job.result()
+    logger.debug(f"Copied {src} → {dst}")
 
 # ── System prompt ─────────────────────────────────────────────────────────────
 
@@ -115,7 +165,7 @@ OUTPUT
 ════════════════════════════════════════════════════════════
 
 {
-  "book_id":<book_id>
+  "book_id": "<book_id>",
   "passage_id": "<passage identifier>",
   "user_id": "<id>",
   "subclaims": [
@@ -128,7 +178,6 @@ OUTPUT
     }
   ]
 }
-
 """
 
 # ── Required keys ─────────────────────────────────────────────────────────────
@@ -136,62 +185,7 @@ OUTPUT
 _DECOMPOSE_REQUIRED_KEYS = {"passage_id", "user_id", "subclaims"}
 _SUBCLAIM_REQUIRED_KEYS  = {"id", "claim", "quote", "weight", "emotional_mode"}
 
-# ── Main function ─────────────────────────────────────────────────────────────
-
-def run_decomposer(record: dict) -> dict:
-    """
-    Decompose a single reader moment into weighted sub-claims with emotional modes.
-
-    Args:
-        user_id:      reader identifier
-        passage_id:   passage identifier
-        moment_text:  the raw moment text written by the reader
-
-    Returns:
-        decomposition dict on success, {"error": ..., "user_id": user_id} on failure
-    """
-    print(f"[Decomposer] running for user_id={record['user_id']}, passage_id={record['passage_id']}")
-    user_message = (
-        f"moment_id: {record['moment_id']}"
-        f"user_id: {record['user_id']}\n"
-        f"passage_id: {record['passage_id']}\n\n"
-        f"book_id: {record['book_id']}\n\n"
-        f"Moment:\n{record['moment_text']}"
-    )
-    response = _gemini_client.models.generate_content(
-        model=_GEMINI_MODEL,
-        config=types.GenerateContentConfig(
-            system_instruction=_DECOMPOSE_SYSTEM_PROMPT,
-            temperature=0.1,
-        ),
-        contents=user_message,
-    )
-
-    raw_text = _get_response_text(response)
-    result   = extract_json(raw_text)
-    if "error" in result:
-        print(f"[Decomposer] JSON extraction failed. raw={raw_text[:200] if raw_text else 'None'}")
-        return {"error": "invalid JSON from Decomposer", "raw": raw_text, "moment_id": record['moment_id']}
-
-    missing = _DECOMPOSE_REQUIRED_KEYS - result.keys()
-    if missing:
-        print(f"[Decomposer] incomplete output, missing keys: {missing}")
-        return {"error": f"incomplete decomposition, missing: {missing}", "raw": result, "moment_id": record['moment_id']}
-
-    for i, sc in enumerate(result.get("subclaims", [])):
-        missing_sc = _SUBCLAIM_REQUIRED_KEYS - sc.keys()
-        if missing_sc:
-            print(f"[Decomposer] subclaim {i} missing keys: {missing_sc}")
-            return {"error": f"subclaim {i} missing: {missing_sc}", "raw": result, "moment_id": record['moment_id']}
-
-    weights = [sc["weight"] for sc in result["subclaims"]]
-    if abs(sum(weights) - 1.0) > 0.02:
-        print(f"[Decomposer] weights do not sum to 1.0: {weights}")
-        return {"error": f"subclaim weights sum to {sum(weights):.2f}", "raw": result, "moment_id": record['moment_id']}
-
-    print(f"[Decomposer] decomposition ready: {len(result['subclaims'])} subclaims")
-    #_save_decomposition(result)
-    return result
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _get_response_text(response) -> str | None:
     try:
@@ -204,13 +198,93 @@ def _get_response_text(response) -> str | None:
         return "\n".join(texts) if texts else None
     except Exception:
         return None
-    
-def run_decomposer_for_file(timestamp_start: str,timestamp_end: str):
-   data= load_raw_from_bq(bq_client,PROC_DATASET,"moments")
-   decompositions=load_raw_from_bq(bq_client,PROC_DATASET,"decompositions")
-   filtered_data = [d for d in data if timestamp_start <= d["timestamp"] <= timestamp_end]
-   for record in filtered_data:
-       result=run_decomposer(record)
-       decompositions.append(result)
-   write_processed_to_bq(bq_client,result, "decompositions")
-    
+
+# ── Main function ─────────────────────────────────────────────────────────────
+
+def run_decomposer(record: dict) -> dict:
+    """
+    Decompose a single reader moment into weighted sub-claims with emotional modes.
+    Returns decomposition dict on success, {"error": ..., "moment_id": ...} on failure.
+    """
+    logger.info(f"[Decomposer] running for user_id={record['user_id']}, "
+                f"passage_id={record['passage_id']}")
+
+    user_message = (
+        f"interpretation_id: {record['interpretation_id']}\n"
+        f"user_id: {record['user_id']}\n"
+        f"passage_id: {record['passage_id']}\n\n"
+        f"book_id: {record['book_id']}\n\n"
+        f"Moment:\n{record['cleaned_interpretation']}"
+    )
+
+    response = _gemini_client.models.generate_content(
+        model=_GEMINI_MODEL,
+        config=types.GenerateContentConfig(
+            system_instruction=_DECOMPOSE_SYSTEM_PROMPT,
+            temperature=0.1,
+        ),
+        contents=user_message,
+    )
+
+    raw_text = _get_response_text(response)
+    result   = extract_json(raw_text)
+
+    if "error" in result:
+        logger.error(f"[Decomposer] JSON extraction failed. "
+                     f"raw={raw_text[:200] if raw_text else 'None'}")
+        return {"error": "invalid JSON from Decomposer",
+                "raw": raw_text, "interpretation_id": record["interpretation_id"]}
+
+    missing = _DECOMPOSE_REQUIRED_KEYS - result.keys()
+    if missing:
+        logger.error(f"[Decomposer] incomplete output, missing keys: {missing}")
+        return {"error": f"incomplete decomposition, missing: {missing}",
+                "raw": result, "interpretation_id": record["interpretation_id"]}
+
+    for i, sc in enumerate(result.get("subclaims", [])):
+        missing_sc = _SUBCLAIM_REQUIRED_KEYS - sc.keys()
+        if missing_sc:
+            logger.error(f"[Decomposer] subclaim {i} missing keys: {missing_sc}")
+            return {"error": f"subclaim {i} missing: {missing_sc}",
+                    "raw": result, "interpretation_id": record["interpretation_id"]}
+
+    weights = [sc["weight"] for sc in result["subclaims"]]
+    if abs(sum(weights) - 1.0) > 0.02:
+        logger.error(f"[Decomposer] weights do not sum to 1.0: {weights}")
+        return {"error": f"subclaim weights sum to {sum(weights):.2f}",
+                "raw": result, "interpretation_id": record["interpretation_id"]}
+
+    logger.info(f"[Decomposer] decomposition ready: {len(result['subclaims'])} subclaims")
+    return result
+
+
+def run_decomposer_for_run(run_id: str, timestamp_start: str, timestamp_end: str):
+    """
+    Decompose all moments in a time window and write results to BQ staging.
+    """
+    src_tid  = bq_table_id(run_id, "moments_processed")
+    dest_tid = bq_table_id(run_id, "decompositions")
+
+    logger.info(f"[Decomposer] loading moments from {src_tid}")
+    df = bq_read(src_tid)
+    records = df.to_dict("records")
+
+    filtered = [r for r in records
+                if timestamp_start <= r.get("timestamp", "") <= timestamp_end]
+    logger.info(f"[Decomposer] {len(filtered)} moment(s) in window "
+                f"[{timestamp_start} → {timestamp_end}]")
+
+    results = []
+    for record in filtered:
+        result = run_decomposer(record)
+        if "error" not in result:
+            results.append(result)
+        else:
+            logger.warning(f"[Decomposer] skipping failed record: {result['error']}")
+
+    if results:
+        ensure_staging_dataset(run_id)
+        bq_write(pd.DataFrame(results), dest_tid)
+        logger.info(f"[Decomposer] wrote {len(results)} decomposition(s) → {dest_tid}")
+    else:
+        logger.warning("[Decomposer] no successful decompositions to write")

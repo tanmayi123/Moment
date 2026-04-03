@@ -364,60 +364,102 @@ def task_preprocessing(**context):
 @log_task_execution("Schema & Statistics (TFDV)")
 def task_schema_stats(**context):
     import pandas as pd
-    ti   = context['task_instance']
+    ti     = context['task_instance']
     run_id = context['run_id']
-    proc_ids = ti.xcom_pull(task_ids='preprocessing', key='processed_table_ids')
 
     logger.info(f"📊 TFDV schema + stats  [run={run_id}]")
 
-    import tensorflow_data_validation as tfdv  # type: ignore
+    # --- xcom pull ---
+    proc_ids = ti.xcom_pull(task_ids='preprocessing', key='processed_table_ids')
+    logger.info(f"   xcom_pull → proc_ids={proc_ids!r}")
+    if not proc_ids:
+        logger.error("❌ proc_ids is None/empty — 'preprocessing' task may have failed or pushed nothing")
+        raise ValueError("No processed_table_ids from xcom")
 
-    results = {'datasets': {}}
-    schema_rows = []  # we'll write these back to BQ
+    # --- tfdv import ---
+    logger.info("   Importing tensorflow_data_validation …")
+    try:
+        import tensorflow_data_validation as tfdv  # type: ignore
+        logger.info(f"   tfdv version: {tfdv.__version__}")
+    except ImportError as e:
+        logger.error(f"❌ Failed to import tfdv: {e}")
+        raise
 
-    for name, tid in proc_ids.items():
+    results    = {'datasets': {}}
+    schema_rows = []
+    total      = len(proc_ids)
+
+    for idx, (name, tid) in enumerate(proc_ids.items(), 1):
+        logger.info(f"── [{idx}/{total}] {name}  table={tid}")
         try:
-            df     = bq_read(tid)
-            stats  = tfdv.generate_statistics_from_dataframe(df)
-            schema = tfdv.infer_schema(stats)
-            anomalies = tfdv.validate_statistics(stats, schema)
+            # --- BQ read ---
+            logger.info(f"   [{name}] bq_read start")
+            df = bq_read(tid)
+            logger.info(f"   [{name}] bq_read done → shape={df.shape}  dtypes={df.dtypes.to_dict()}")
 
+            if df.empty:
+                logger.warning(f"⚠️  [{name}] DataFrame is empty — skipping TFDV")
+                results['datasets'][name] = {'error': 'empty dataframe'}
+                continue
+
+            # --- stats ---
+            logger.info(f"   [{name}] Generating statistics …")
+            stats = tfdv.generate_statistics_from_dataframe(df)
+            logger.info(f"   [{name}] Statistics generated: {len(stats.datasets)} dataset(s)")
+
+            # --- schema ---
+            logger.info(f"   [{name}] Inferring schema …")
+            schema = tfdv.infer_schema(stats)
+            logger.info(f"   [{name}] Schema inferred: {len(schema.feature)} feature(s)")
+
+            # --- validation ---
+            logger.info(f"   [{name}] Validating statistics against schema …")
+            anomalies = tfdv.validate_statistics(stats, schema)
             anom_dict = {f.name: f.description for f in anomalies.anomaly_info.values()}
-            summary   = {
+            logger.info(f"   [{name}] Validation done: {len(anom_dict)} anomalie(s)")
+
+            summary = {
                 'total_records': len(df),
                 'total_fields':  len(df.columns),
                 'anomalies':     anom_dict,
             }
             results['datasets'][name] = summary
 
-            # Store serialised schema as a BQ row for lineage
+            # --- schema row ---
+            schema_pb_hex = schema.SerializeToString().hex()
+            logger.info(f"   [{name}] schema_pb serialised → {len(schema_pb_hex)} hex chars")
             schema_rows.append({
-                'dataset':   name,
-                'run_id':    run_id,
-                'schema_pb': schema.SerializeToString().hex(),  # hex-encode bytes for BQ STRING
-                'anomalies': json.dumps(anom_dict),
+                'dataset':     name,
+                'run_id':      run_id,
+                'schema_pb':   schema_pb_hex,
+                'anomalies':   json.dumps(anom_dict),
                 'recorded_at': datetime.now().isoformat(),
             })
 
             if anom_dict:
-                logger.warning(f"⚠️  {name}: {len(anom_dict)} TFDV anomalies")
+                logger.warning(f"⚠️  [{name}] {len(anom_dict)} TFDV anomalie(s):")
                 for feat, desc in anom_dict.items():
                     logger.warning(f"     {feat}: {desc}")
             else:
-                logger.info(f"   {name}: {len(df)} records, {len(df.columns)} fields — no anomalies")
+                logger.info(f"   [{name}] ✅ {len(df)} records, {len(df.columns)} fields — no anomalies")
 
         except Exception as e:
-            logger.error(f"❌ {name} TFDV failed: {e}")
+            logger.error(f"❌ [{name}] TFDV failed: {type(e).__name__}: {e}", exc_info=True)
             results['datasets'][name] = {'error': str(e)}
 
-    # Persist schemas to BQ staging for lineage (no local write)
+    # --- BQ write ---
+    logger.info(f"   schema_rows to persist: {len(schema_rows)}/{total}")
     if schema_rows:
-        import pandas as pd
         schema_tid = bq_table_id(run_id, 'tfdv_schemas')
-        bq_write(pd.DataFrame(schema_rows), schema_tid)
-        logger.info(f"   Schemas → {schema_tid}")
+        logger.info(f"   Writing schemas → {schema_tid}")
+        try:
+            bq_write(pd.DataFrame(schema_rows), schema_tid)
+            logger.info(f"   ✅ Schemas written → {schema_tid}")
+        except Exception as e:
+            logger.error(f"❌ bq_write failed for tfdv_schemas: {type(e).__name__}: {e}", exc_info=True)
+            raise
 
-    logger.info("✅ TFDV complete")
+    logger.info(f"✅ TFDV complete — {len(results['datasets'])} dataset(s) processed")
     return results
 
 

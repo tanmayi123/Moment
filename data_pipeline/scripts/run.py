@@ -19,6 +19,7 @@ import sys
 import yaml # type: ignore
 import argparse
 from datetime import datetime
+from data_pipeline_dag import bq_read
 
 from preprocessor import (
     read_raw_data,
@@ -64,18 +65,15 @@ def run_pipeline(input_dir=None, output_dir=None, config_path="config.yaml"):
     cfg = load_config(config_path)
     setup_logging(cfg)
 
-    # override paths if provided (used by Airflow)
     if input_dir:
-        cfg["paths"]["raw"]["interpretations"] = os.path.join(
-            input_dir, "all_interpretations_450_FINAL_NO_BIAS.json"
-        )
-        cfg["paths"]["raw"]["passages"]        = os.path.join(input_dir, "passages.csv")
-        cfg["paths"]["raw"]["characters"]      = os.path.join(input_dir, "characters.csv")
-    if output_dir:
-        cfg["paths"]["processed"]["moments"] = os.path.join(output_dir, "moments_processed.json")
-        cfg["paths"]["processed"]["books"]   = os.path.join(output_dir, "books_processed.json")
-        cfg["paths"]["processed"]["users"]   = os.path.join(output_dir, "users_processed.json")
+    
+        interp_df  = bq_read(input_dir['interpretations_raw'])
+        passage_df = bq_read(input_dir['passage_details_new'])
+        char_df    = bq_read(input_dir['user_details_new'])
 
+        interpretations = interp_df.to_dict('records')
+        passages        = passage_df.to_dict('records')
+        characters      = char_df.to_dict('records')
     start = datetime.now()
     logger = logging.getLogger(__name__)
 

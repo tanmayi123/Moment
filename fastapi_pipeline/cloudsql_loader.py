@@ -2,7 +2,7 @@
 cloudsql_loader.py — MOMENT Cloud SQL Data Acquisition
 =======================================================
 Reads from Cloud SQL via Cloud SQL Python Connector.
-Designed to run on Cloud Run (same VPC as Cloud SQL).
+Supports watermark-based incremental loading via `since` parameter.
 """
 
 import logging
@@ -30,7 +30,7 @@ DEFAULT_DB_PASS  = os.environ.get('CLOUDSQL_PASS',  '')
 
 class CloudSQLLoader:
 
-    def __init__(self, config_path=None):
+    def __init__(self, config_path=None, since: str = None):
         if config_path and os.path.exists(config_path):
             with open(config_path, "r") as f:
                 self.config = yaml.safe_load(f)
@@ -39,6 +39,7 @@ class CloudSQLLoader:
 
         self.timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.dataframes = None
+        self.since      = since
 
         csql = self.config.get("cloudsql", {})
         self.instance = csql.get("instance_connection_name") or DEFAULT_INSTANCE
@@ -47,7 +48,7 @@ class CloudSQLLoader:
         self.db_pass  = csql.get("db_pass") or DEFAULT_DB_PASS
 
         self._engine = None
-        logger.info(f"CloudSQLLoader initialised — instance={self.instance}, db={self.db_name}")
+        logger.info(f"CloudSQLLoader initialised — instance={self.instance}, db={self.db_name}, since={self.since}")
 
     def run(self):
         logger.info("Starting Cloud SQL data acquisition")
@@ -64,6 +65,7 @@ class CloudSQLLoader:
             "total_rows": total_rows,
             "files":      list(self.dataframes.keys()),
             "source":     "cloudsql",
+            "since":      self.since,
         }
 
     def get_dataframes(self):
@@ -72,7 +74,14 @@ class CloudSQLLoader:
         return self.dataframes
 
     def _load_interpretations(self) -> pd.DataFrame:
-        query = """
+        since_clause = ""
+        if self.since:
+            since_clause = f"AND m.created_at > '{self.since}'"
+            logger.info(f"Loading interpretations since {self.since}")
+        else:
+            logger.info("Loading ALL interpretations (no watermark)")
+
+        query = f"""
             SELECT
                 m.id                                    AS interpretation_id,
                 m.user_id                               AS user_id,
@@ -81,6 +90,7 @@ class CloudSQLLoader:
                 m.book_id::text                         AS passage_id,
                 b.title                                 AS book,
                 b.author                                AS book_author,
+                b.gutenberg_id                          AS gutenberg_id,
                 m.passage,
                 m.chapter,
                 m.page_num,
@@ -99,14 +109,14 @@ class CloudSQLLoader:
             WHERE m.is_deleted = FALSE
               AND m.interpretation IS NOT NULL
               AND trim(m.interpretation) <> ''
+              {since_clause}
             ORDER BY m.created_at
         """
-        logger.info("Loading interpretations from Cloud SQL")
         df = self._run_query(query)
         df['user_id']        = df['user_id'].astype(str).apply(make_user_id)
         df['character_id']   = df['user_id']
         df['character_name'] = df['user_id'].astype(str)
-        logger.info(f"  -> {len(df)} rows")
+        logger.info(f"  -> {len(df)} interpretations")
         return df
 
     def _load_passages(self) -> pd.DataFrame:
@@ -127,35 +137,44 @@ class CloudSQLLoader:
             LEFT JOIN public.gutenberg_book_cache gc ON gc.book_id = b.id
             ORDER BY b.title
         """
-        logger.info("Loading passages from Cloud SQL")
         df = self._run_query(query)
-        logger.info(f"  -> {len(df)} rows")
+        logger.info(f"  -> {len(df)} passages")
         return df
 
     def _load_users(self) -> pd.DataFrame:
+        """Load directly from public.users table — all columns."""
         query = """
             SELECT
-                m.user_id::text                         AS user_id,
-                m.user_id::text                         AS Name,
-                COUNT(*)                                AS moment_count,
-                COUNT(DISTINCT m.book_id)               AS books_read,
-                MIN(m.created_at)                       AS first_moment_at,
-                MAX(m.created_at)                       AS last_moment_at,
-                ROUND(AVG(COALESCE(
-                    array_length(regexp_split_to_array(trim(m.interpretation), '\\s+'), 1), 0
-                ))::numeric, 2)                         AS avg_word_count,
-                COUNT(CASE WHEN m.interpretation IS NOT NULL
-                      AND trim(m.interpretation) <> '' THEN 1 END) AS total_interpretations
-            FROM public.moments m
-            WHERE m.is_deleted = FALSE
-            GROUP BY m.user_id
-            ORDER BY moment_count DESC
+                id::text                    AS id,
+                firebase_uid,
+                first_name,
+                last_name,
+                email,
+                readername,
+                bio,
+                gender,
+                photo_url,
+                dark_mode,
+                moments_layout_mode,
+                passage_first,
+                last_read_book_id::text     AS last_read_book_id,
+                onboarding_complete,
+                consent_given,
+                consent_at,
+                created_at,
+                last_login_at,
+                last_hero_gut_id,
+                guide_book_gut_id,
+                reading_state,
+                last_captured_type,
+                last_captured_shelf_id::text AS last_captured_shelf_id
+            FROM public.users
+            ORDER BY created_at
         """
-        logger.info("Loading users from Cloud SQL")
         df = self._run_query(query)
-        df['user_id'] = df['user_id'].astype(str).apply(make_user_id)
-        df['Name']    = df['user_id'].astype(str)
-        logger.info(f"  -> {len(df)} rows (unique users)")
+        # Generate hashed user_id from firebase_uid
+        df['user_id'] = df['firebase_uid'].astype(str).apply(make_user_id)
+        logger.info(f"  -> {len(df)} users")
         return df
 
     def _get_engine(self):
@@ -174,7 +193,7 @@ class CloudSQLLoader:
                 user=self.db_user,
                 password=self.db_pass,
                 db=self.db_name,
-                ip_type="PRIVATE"
+                ip_type="PRIVATE",
             )
 
         self._engine = create_engine("postgresql+pg8000://", creator=_get_conn)

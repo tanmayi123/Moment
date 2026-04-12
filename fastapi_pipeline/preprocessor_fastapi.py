@@ -1,11 +1,8 @@
 """
 preprocessor_fastapi.py — MOMENT Preprocessing (FastAPI version)
 =================================================================
-Same logic as preprocessor.py but:
-  - Config hardcoded (no config.yaml needed)
-  - Input: DataFrames from CloudSQLLoader
-  - Output: (moments, books, users) as lists of dicts
-  - No file I/O
+Config hardcoded. Input: DataFrames from CloudSQLLoader.
+Output: (moments, books, users) as lists of dicts.
 """
 
 import re
@@ -37,13 +34,6 @@ CFG = {
         "repetitive_chars":          25,
         "repetitive_words_threshold":0.90,
     },
-    "anomalies": {
-        "iqr_multiplier":       1.5,
-        "zscore_threshold":     2.5,
-        "similarity_threshold": 0.85,
-        "new_reader_ceiling":   70,
-        "well_read_floor":      30,
-    },
     "timestamp_format": "%Y-%m-%dT%H:%M:%S",
 }
 
@@ -59,25 +49,11 @@ PROFANITY = {
 def _hash(text, length=8):
     return hashlib.md5(text.encode("utf-8")).hexdigest()[:length]
 
-def _sanitize(name):
-    if not name:
-        return "unknown"
-    clean = name.lower()
-    clean = re.sub(r"['\-]", "", clean)
-    clean = re.sub(r"[^a-z0-9]", "_", clean)
-    clean = re.sub(r"_+", "_", clean).strip("_")
-    return clean
-
 def make_book_id(gutenberg_id):
     return f"gutenberg_{gutenberg_id}"
 
-def make_passage_id(book_id, passage_key):
-    """Use passage_key from Cloud SQL directly."""
-    safe_key = re.sub(r"[^a-z0-9_]", "_", str(passage_key).lower())
-    return f"{book_id}_{safe_key}"
-
-def make_interpretation_id(user_id, passage_id, text):
-    return f"moment_{_hash(str(user_id) + passage_id + text[:100])}"
+def make_interpretation_id(user_id, passage_key, text):
+    return f"moment_{_hash(str(user_id) + str(passage_key) + text[:100])}"
 
 
 # ── Text cleaning ─────────────────────────────────────────────────────────────
@@ -229,23 +205,17 @@ def calculate_metrics(text):
     }
 
 
-# ── Main preprocessing entry point ───────────────────────────────────────────
+# ── Main entry point ──────────────────────────────────────────────────────────
 
 def preprocess_all(
     interpretations_df: pd.DataFrame,
     passages_df:        pd.DataFrame,
     users_df:           pd.DataFrame,
 ) -> Tuple[List[dict], List[dict], List[dict]]:
-    """
-    Main entry point called by main.py.
-    Returns: (moments, books, users)
-    """
     ts = datetime.now().strftime(CFG["timestamp_format"])
-
     moments = _process_moments(interpretations_df, ts)
     books   = _process_books(passages_df, ts)
     users   = _process_users(users_df, ts)
-
     return moments, books, users
 
 
@@ -254,45 +224,40 @@ def _process_moments(df: pd.DataFrame, ts: str) -> List[dict]:
     for _, row in df.iterrows():
         try:
             user_id      = row.get("user_id", "")
-            passage_id_raw = str(row.get("passage_id", ""))
             book_title   = str(row.get("book", ""))
             gutenberg_id = str(row.get("gutenberg_id", "")) if "gutenberg_id" in row else ""
             passage_key  = str(row.get("passage_key", ""))
             raw_text     = str(row.get("interpretation", ""))
 
-            # build book_id from gutenberg_id if available, else hash of title
             if gutenberg_id and gutenberg_id not in ("", "None", "nan"):
                 book_id = make_book_id(gutenberg_id)
             else:
-                book_id = f"book_{_hash(book_title)}"
-
-            passage_id = make_passage_id(book_id, passage_key or passage_id_raw)
+                book_id = str(row.get("passage_id", ""))
 
             cleaned    = clean_text(raw_text)
             validation = validate_text(cleaned)
             issues     = detect_issues(cleaned)
             metrics    = calculate_metrics(cleaned)
-            interp_id  = make_interpretation_id(user_id, passage_id, cleaned)
+            interp_id  = make_interpretation_id(user_id, passage_key, cleaned)
 
             records.append({
-                "interpretation_id":    interp_id,
-                "user_id":              user_id,
-                "book_id":              book_id,
-                "passage_id":           passage_id,
-                "book_title":           book_title,
-                "book_author":          str(row.get("book_author", "")),
-                "passage_key":          passage_key,
-                "chapter":              str(row.get("chapter", "")),
-                "page_num":             row.get("page_num", None),
+                "interpretation_id":      interp_id,
+                "user_id":                str(user_id),
+                "book_id":                book_id,
+                "passage_key":            passage_key,
+                "book_title":             book_title,
+                "book_author":            str(row.get("book_author", "")),
+                "chapter":                str(row.get("chapter", "")),
+                "page_num":               row.get("page_num", None),
                 "cleaned_interpretation": cleaned,
-                "original_word_count":  row.get("word_count", 0),
-                "is_valid":             validation["is_valid"],
-                "quality_score":        validation["quality_score"],
-                "quality_issues":       str(validation["quality_issues"]),
-                "detected_issues":      str(issues),
-                "metrics":              str(metrics),
-                "created_at":           str(row.get("created_at", "")),
-                "timestamp":            ts,
+                "original_word_count":    row.get("word_count", 0),
+                "is_valid":               validation["is_valid"],
+                "quality_score":          validation["quality_score"],
+                "quality_issues":         str(validation["quality_issues"]),
+                "detected_issues":        str(issues),
+                "metrics":                str(metrics),
+                "created_at":             str(row.get("created_at", "")),
+                "timestamp":              ts,
             })
         except Exception as e:
             logger.error(f"Error processing moment row: {e}")
@@ -303,6 +268,7 @@ def _process_moments(df: pd.DataFrame, ts: str) -> List[dict]:
 
 
 def _process_books(df: pd.DataFrame, ts: str) -> List[dict]:
+    """Books — keep only passage_key relevant fields."""
     records = []
     for _, row in df.iterrows():
         try:
@@ -312,20 +278,17 @@ def _process_books(df: pd.DataFrame, ts: str) -> List[dict]:
             if gutenberg_id and gutenberg_id not in ("", "None", "nan"):
                 book_id = make_book_id(gutenberg_id)
             else:
-                book_id = f"book_{_hash(title)}"
+                book_id = str(row.get("passage_id", ""))
 
             records.append({
-                "book_id":        book_id,
-                "passage_id":     str(row.get("passage_id", "")),
-                "book_title":     title,
-                "book_author":    str(row.get("book_author", "")),
-                "gutenberg_id":   gutenberg_id,
-                "year":           row.get("year", None),
-                "cover_url":      str(row.get("cover_url", "")),
-                "epub_url":       str(row.get("epub_url", "")),
-                "text_url":       str(row.get("text_url", "")),
-                "opening_passage":str(row.get("opening_passage", "")),
-                "timestamp":      ts,
+                "book_id":      book_id,
+                "passage_id":   str(row.get("passage_id", "")),
+                "book_title":   title,
+                "book_author":  str(row.get("book_author", "")),
+                "gutenberg_id": gutenberg_id,
+                "epub_url":     str(row.get("epub_url", "")),
+                "text_url":     str(row.get("text_url", "")),
+                "timestamp":    ts,
             })
         except Exception as e:
             logger.error(f"Error processing book row: {e}")
@@ -336,18 +299,36 @@ def _process_books(df: pd.DataFrame, ts: str) -> List[dict]:
 
 
 def _process_users(df: pd.DataFrame, ts: str) -> List[dict]:
+    """Users — all columns from public.users table."""
     records = []
     for _, row in df.iterrows():
         try:
             records.append({
-                "user_id":               row.get("user_id", ""),
-                "moment_count":          int(row.get("moment_count", 0)),
-                "books_read":            int(row.get("books_read", 0)),
-                "avg_word_count":        float(row.get("avg_word_count", 0.0) or 0.0),
-                "total_interpretations": int(row.get("total_interpretations", 0)),
-                "first_moment_at":       str(row.get("first_moment_at", "")),
-                "last_moment_at":        str(row.get("last_moment_at", "")),
-                "timestamp":             ts,
+                "user_id":                str(row.get("user_id", "")),        # hashed from firebase_uid
+                "id":                     str(row.get("id", "")),             # original UUID
+                "firebase_uid":           str(row.get("firebase_uid", "")),
+                "first_name":             str(row.get("first_name", "")),
+                "last_name":              str(row.get("last_name", "")),
+                "email":                  str(row.get("email", "")),
+                "readername":             str(row.get("readername", "")),
+                "bio":                    str(row.get("bio", "")),
+                "gender":                 str(row.get("gender", "")),
+                "photo_url":              str(row.get("photo_url", "")),
+                "dark_mode":              bool(row.get("dark_mode", False)),
+                "moments_layout_mode":    str(row.get("moments_layout_mode", "")),
+                "passage_first":          bool(row.get("passage_first", False)),
+                "last_read_book_id":      str(row.get("last_read_book_id", "")),
+                "onboarding_complete":    bool(row.get("onboarding_complete", False)),
+                "consent_given":          bool(row.get("consent_given", False)),
+                "consent_at":             str(row.get("consent_at", "")),
+                "created_at":             str(row.get("created_at", "")),
+                "last_login_at":          str(row.get("last_login_at", "")),
+                "last_hero_gut_id":       str(row.get("last_hero_gut_id", "")),
+                "guide_book_gut_id":      str(row.get("guide_book_gut_id", "")),
+                "reading_state":          str(row.get("reading_state", "")),
+                "last_captured_type":     str(row.get("last_captured_type", "")),
+                "last_captured_shelf_id": str(row.get("last_captured_shelf_id", "")),
+                "timestamp":              ts,
             })
         except Exception as e:
             logger.error(f"Error processing user row: {e}")

@@ -20,7 +20,7 @@ x-airflow-common: &airflow-common
     # GCS credentials — service account key
     GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/gcs-key.json
     GOOGLE_CLOUD_PROJECT: moment-486719
-    GEMINI_API_KEY_MOMENT: 
+    GEMINI_API_KEY_MOMENT: ${GEMINI_API_KEY_MOMENT}
     PYTHONPATH: /opt/airflow:/opt/airflow/models
   volumes:
     # DAG file

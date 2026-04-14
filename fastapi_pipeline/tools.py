@@ -564,3 +564,123 @@ def count_new_moments(user_id: str, since_iso: str) -> int:
 
 # COMPAT_LOG_FILE kept as empty string so any legacy imports don't break
 COMPAT_LOG_FILE = ""
+
+
+# ── Book-level compatibility ──────────────────────────────────────────────────
+
+def get_passage_results_for_user(user_id: str) -> list[dict]:
+    """
+    Load all passage-level compat results for a user from BQ.
+    Returns flat rows with think_R, think_C, think_D, feel_R, feel_C, feel_D.
+    """
+    return _run_query(
+        f"""
+        SELECT
+            CAST(user_a AS STRING)  AS user_a,
+            CAST(user_b AS STRING)  AS user_b,
+            book_id,
+            passage_id,
+            think_R, think_C, think_D,
+            feel_R,  feel_C,  feel_D,
+            confidence,
+            dominant_think,
+            dominant_feel
+        FROM {_table('compatibility_runs')}
+        WHERE CAST(user_a AS STRING) = @uid
+           OR CAST(user_b AS STRING) = @uid
+        """,
+        [bigquery.ScalarQueryParameter("uid", "STRING", str(user_id))],
+    )
+
+
+def save_book_level(rows: list[dict], anchor_user_id: str) -> None:
+    """
+    Save book-level aggregates with rank_position per (anchor_user, book).
+    Stores one row per match per book for the anchor user.
+    rank_position = rank within that book by confidence desc.
+
+    BQ schema: user_id STRING, match_user STRING, book_id STRING,
+      rank_position INT64, think_R/C/D FLOAT, feel_R/C/D FLOAT,
+      dominant_think/feel STRING, verdict STRING, confidence FLOAT,
+      passage_count INT64, timestamp TIMESTAMP
+    """
+    if not rows:
+        return
+    client  = get_client()
+    bq_name = "book_compatibility"
+    tbl_ref = f"{_PROJECT}.{_DATASET}.{bq_name}"
+
+    from collections import defaultdict
+    by_book = defaultdict(list)
+    for row in rows:
+        by_book[row["book_id"]].append(row)
+
+    rows_to_insert = []
+    for book_id, book_rows in by_book.items():
+        book_rows_sorted = sorted(book_rows, key=lambda r: r.get("confidence", 0.0), reverse=True)
+        for pos, row in enumerate(book_rows_sorted, 1):
+            match_user = row["user_b"] if row["user_a"] == anchor_user_id else row["user_a"]
+            rows_to_insert.append({
+                **row,
+                "user_id":       anchor_user_id,
+                "match_user":    match_user,
+                "rank_position": pos,
+            })
+
+    try:
+        client.query(
+            f"DELETE FROM `{tbl_ref}` WHERE user_id = '{anchor_user_id}'"
+        ).result()
+    except Exception as e:
+        if "streaming buffer" in str(e).lower():
+            pass
+        else:
+            raise
+
+    errors = client.insert_rows_json(tbl_ref, rows_to_insert)
+    if errors:
+        raise RuntimeError(f"BQ insert error into book_level_compatibility: {errors}")
+    print(f"[BQ] {len(rows_to_insert)} book-level rows saved for {anchor_user_id}")
+
+
+def save_profile_level(rows: list[dict], anchor_user_id: str) -> None:
+    """
+    Save profile-level aggregates with rank_position for anchor user.
+    Ranks all matches by confidence desc across all books.
+
+    BQ schema: user_id STRING, match_user STRING, rank_position INT64,
+      think_R/C/D FLOAT, feel_R/C/D FLOAT, dominant_think/feel STRING,
+      verdict STRING, confidence FLOAT, passage_count INT64,
+      book_count INT64, timestamp TIMESTAMP
+    """
+    if not rows:
+        return
+    client  = get_client()
+    bq_name = "profile_compatibility"
+    tbl_ref = f"{_PROJECT}.{_DATASET}.{bq_name}"
+
+    rows_sorted = sorted(rows, key=lambda r: r.get("confidence", 0.0), reverse=True)
+    rows_to_insert = []
+    for pos, row in enumerate(rows_sorted, 1):
+        match_user = row["user_b"] if row["user_a"] == anchor_user_id else row["user_a"]
+        rows_to_insert.append({
+            **row,
+            "user_id":       anchor_user_id,
+            "match_user":    match_user,
+            "rank_position": pos,
+        })
+
+    try:
+        client.query(
+            f"DELETE FROM `{tbl_ref}` WHERE user_id = '{anchor_user_id}'"
+        ).result()
+    except Exception as e:
+        if "streaming buffer" in str(e).lower():
+            pass
+        else:
+            raise
+
+    errors = client.insert_rows_json(tbl_ref, rows_to_insert)
+    if errors:
+        raise RuntimeError(f"BQ insert error into profile_level_compatibility: {errors}")
+    print(f"[BQ] {len(rows_to_insert)} profile-level rows saved for {anchor_user_id}")

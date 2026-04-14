@@ -18,10 +18,12 @@ from collections import defaultdict
 from datetime import datetime
 from scipy.optimize import minimize
 from google.cloud import bigquery
+from aggregator import aggregate_book_level, aggregate_profile_level
+from tools import get_passage_results_for_user, save_book_level, save_profile_level
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-PROJECT = os.environ.get("MOMENT_GCP_PROJECTID",  "your-gcp-project")
+PROJECT = os.environ.get("MOMENT_GCP_PROJECTID", "moment-486719")
 DATASET = os.environ.get("BQ_DATASET", "new_moments_processed")
 K       = 5
 
@@ -88,7 +90,7 @@ def load_conv_weights() -> dict[str, dict[str, float]]:
 
 # ── Bradley-Terry ─────────────────────────────────────────────────────────────
 
-MIN_COMPARISONS = 1
+MIN_COMPARISONS = 5
 
 
 def fit_bradley_terry(comparisons_list: list[tuple], weights: list[float] = None) -> dict[str, float]:
@@ -115,10 +117,7 @@ def fit_bradley_terry(comparisons_list: list[tuple], weights: list[float] = None
 
 
 def blend_weights(n_comparisons: int) -> tuple[float, float]:
-    if n_comparisons == 0:
-        return 1.0, 0.0  # pure confidence, no BT
-    # Even 1 comparison gives meaningful BT weight
-    bt_weight   = min(0.8, 0.3 + (n_comparisons / 50) * 0.5)
+    bt_weight   = min(0.7, 0.1 + (n_comparisons / 50) * 0.6)
     conf_weight = round(1.0 - bt_weight, 2)
     return conf_weight, round(bt_weight, 2)
 
@@ -182,7 +181,7 @@ def rerank_for_user(
 
         ranked.append({
             "run_id":       int(rid),
-            "match_user": str(match_user) if match_user else "",
+            "match_user":   str(match_user),
             "verdict":      run.get("dominant_think", ""),
             "confidence":   confidence,
             "bt_score":     round(bt_scores.get(rid, 0.0), 6),
@@ -225,18 +224,11 @@ def refit_user(
     k: int = 5,
 ) -> None:
     """
-    Refit BT model for a single user and write fresh rankings to BQ.
-    Called as a background task from main.py after feedback is recorded.
-    Reads compat runs, comparisons, and conversations from BQ.
+    Refit BT model for a single user across ALL their passages and write
+    fresh rankings to BQ. book_id and passage_id params are accepted for
+    interface compatibility but ignored — always refits all passages.
     """
     print(f"[BT] refitting rankings for {user_id}")
-
-    # Load only runs involving this user
-    uid_filter = f"(CAST(user_a AS STRING) = '{user_id}' OR CAST(user_b AS STRING) = '{user_id}')"
-    if book_id:
-        uid_filter += f" AND book_id = '{book_id}'"
-    if passage_id:
-        uid_filter += f" AND passage_id = '{passage_id}'"
 
     rows = _query(f"""
         SELECT
@@ -245,7 +237,8 @@ def refit_user(
             CAST(user_b AS STRING)  AS user_b,
             book_id, passage_id, dominant_think, confidence
         FROM `{PROJECT}.{DATASET}.compatibility_results`
-        WHERE {uid_filter}
+        WHERE CAST(user_a AS STRING) = '{user_id}'
+           OR CAST(user_b AS STRING) = '{user_id}'
     """)
 
     if not rows:
@@ -297,7 +290,7 @@ def refit_user(
                 f"AND book_id = '{b_id}' AND passage_id = '{p_id}'"
             ).result()
         except Exception as e:
-            if "streaming buffer" in str(e).lower() or "truncated" in str(e).lower():
+            if "streaming buffer" in str(e).lower():
                 print(f"[BT] streaming buffer active for {user_id}/{b_id}/{p_id}, skipping delete")
             else:
                 raise
@@ -328,6 +321,19 @@ def refit_user(
         else:
             print(f"[BT] saved {len(rows_to_insert)} rankings for {user_id} / {b_id} / {p_id}")
 
+    # ── Book-level + profile-level aggregation ────────────────────────────────
+    # Read all passage-level results for this user then aggregate up
+    try:
+        passage_results = get_passage_results_for_user(user_id)
+        if passage_results:
+            book_rows    = aggregate_book_level(passage_results)
+            profile_rows = aggregate_profile_level(book_rows)
+            save_book_level(book_rows, anchor_user_id=user_id)
+            save_profile_level(profile_rows, anchor_user_id=user_id)
+            print(f"[BT] book-level: {len(book_rows)} rows, profile-level: {len(profile_rows)} rows saved for {user_id}")
+    except Exception as e:
+        print(f"[BT] aggregation error for {user_id}: {e}")
+
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -336,18 +342,18 @@ def main():
     runs         = load_compat_runs()
     comparisons  = load_comparisons()
     conv_weights = load_conv_weights()
-
+ 
     users: set[str] = set()
     for r in runs.values():
         users.add(str(r["user_a"]))
         users.add(str(r["user_b"]))
-
+ 
     passages: set[tuple[str, str]] = set()
     for r in runs.values():
         passages.add((r["book_id"], r["passage_id"]))
-
+ 
     print(f"\n  {len(users)} users | {len(passages)} passages\n")
-
+ 
     print("Fitting global Bradley-Terry model...")
     all_cmps = [(c["winner_run_id"], c["loser_run_id"]) for c in comparisons]
     all_conv: dict[str, float] = {}
@@ -357,12 +363,12 @@ def main():
     global_wts = [1.0 + all_conv.get(w, 0.0) for w, _ in all_cmps]
     global_bt  = fit_bradley_terry(all_cmps, global_wts)
     print(f"  Global BT covers {len(global_bt):,} runs\n")
-
+ 
     user_runs: dict[str, list[str]] = defaultdict(list)
     for rid, r in runs.items():
         user_runs[str(r["user_a"])].append(rid)
         user_runs[str(r["user_b"])].append(rid)
-
+ 
     print("Reranking...")
     all_rows = []
     for user_id in sorted(users):
@@ -397,11 +403,34 @@ def main():
                     "n_comparisons": wu.get("n_comparisons", 0),
                     "generated_at":  datetime.utcnow().isoformat(),
                 })
-
+ 
     print(f"\n  Generated {len(all_rows):,} ranking rows")
-    print("\nWriting to BQ...")
+    print("\nWriting rankings to BQ...")
     write_rankings_to_bq(all_rows)
+ 
+    # ── Book-level + profile-level aggregation ────────────────────────────────
+    # Reuse runs already in memory — no extra BQ reads needed
+    print("\nComputing book-level and profile-level compatibility...")
+    all_passage_results = list(runs.values())
+ 
+    for user_id in sorted(users):
+        try:
+            user_passage_results = [
+                r for r in all_passage_results
+                if str(r.get("user_a")) == user_id or str(r.get("user_b")) == user_id
+            ]
+            if not user_passage_results:
+                continue
+            book_rows    = aggregate_book_level(user_passage_results)
+            profile_rows = aggregate_profile_level(book_rows)
+            save_book_level(book_rows, anchor_user_id=user_id)
+            save_profile_level(profile_rows, anchor_user_id=user_id)
+            print(f"  {user_id}: {len(book_rows)} book rows, {len(profile_rows)} profile rows")
+        except Exception as e:
+            print(f"  [warn] aggregation failed for {user_id}: {e}")
+ 
     print("\nDone.")
+ 
 
 
 if __name__ == "__main__":

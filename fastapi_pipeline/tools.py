@@ -51,7 +51,7 @@ from google.cloud import bigquery
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-_PROJECT = os.environ.get("MOMENT_GCP_PROJECTID", "your-gcp-project")
+_PROJECT = os.environ.get("MOMENT_GCP_PROJECTID", os.environ.get("MOMENT_GCP_PROJECTID", "your-gcp-project"))
 _DATASET = os.environ.get("BQ_DATASET",  "new_moments_processed")
 
 _TABLES = {
@@ -565,7 +565,6 @@ def count_new_moments(user_id: str, since_iso: str) -> int:
 # COMPAT_LOG_FILE kept as empty string so any legacy imports don't break
 COMPAT_LOG_FILE = ""
 
-
 # ── Book-level compatibility ──────────────────────────────────────────────────
 
 def get_passage_results_for_user(user_id: str) -> list[dict]:
@@ -591,6 +590,31 @@ def get_passage_results_for_user(user_id: str) -> list[dict]:
         """,
         [bigquery.ScalarQueryParameter("uid", "STRING", str(user_id))],
     )
+
+
+def _delete_with_retry(client, tbl_ref: str, user_id: str, max_wait: int = 90) -> None:
+    """
+    Delete all rows for user_id from a BQ table.
+    If the streaming buffer blocks DELETE, waits and retries up to max_wait seconds.
+    """
+    import time
+    interval = 10
+    elapsed  = 0
+    while elapsed <= max_wait:
+        try:
+            client.query(
+                f"DELETE FROM `{tbl_ref}` WHERE user_id = '{user_id}'"
+            ).result()
+            return  # success
+        except Exception as e:
+            if "streaming buffer" in str(e).lower():
+                print(f"[BQ] streaming buffer active for {tbl_ref}, retrying in {interval}s...")
+                time.sleep(interval)
+                elapsed += interval
+            else:
+                raise
+    # Gave up waiting — insert anyway, duplicates handled by ROW_NUMBER on read
+    print(f"[BQ] streaming buffer timeout for {tbl_ref}/{user_id}, inserting without delete")
 
 
 def save_book_level(rows: list[dict], anchor_user_id: str) -> None:
@@ -627,19 +651,10 @@ def save_book_level(rows: list[dict], anchor_user_id: str) -> None:
                 "rank_position": pos,
             })
 
-    try:
-        client.query(
-            f"DELETE FROM `{tbl_ref}` WHERE user_id = '{anchor_user_id}'"
-        ).result()
-    except Exception as e:
-        if "streaming buffer" in str(e).lower():
-            pass
-        else:
-            raise
-
+    _delete_with_retry(client, tbl_ref, anchor_user_id)
     errors = client.insert_rows_json(tbl_ref, rows_to_insert)
     if errors:
-        raise RuntimeError(f"BQ insert error into book_level_compatibility: {errors}")
+        raise RuntimeError(f"BQ insert error into book_compatibility: {errors}")
     print(f"[BQ] {len(rows_to_insert)} book-level rows saved for {anchor_user_id}")
 
 
@@ -670,16 +685,7 @@ def save_profile_level(rows: list[dict], anchor_user_id: str) -> None:
             "rank_position": pos,
         })
 
-    try:
-        client.query(
-            f"DELETE FROM `{tbl_ref}` WHERE user_id = '{anchor_user_id}'"
-        ).result()
-    except Exception as e:
-        if "streaming buffer" in str(e).lower():
-            pass
-        else:
-            raise
-
+    _delete_with_retry(client, tbl_ref, anchor_user_id)
     errors = client.insert_rows_json(tbl_ref, rows_to_insert)
     if errors:
         raise RuntimeError(f"BQ insert error into profile_level_compatibility: {errors}")

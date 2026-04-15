@@ -201,6 +201,7 @@ def pipeline_status():
 
 
 # ── Background: batch compatibility ──────────────────────────────────────────
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def _run_batch_compatibility(
     user_id:        str,
@@ -208,16 +209,6 @@ def _run_batch_compatibility(
     passage_id:     str,
     interpretation: str,
 ) -> None:
-    """
-    Run compatibility between one processed moment and every existing BQ user
-    on the same passage. Runs rankings refit for this user once all compat
-    runs are complete.
-
-    Only matches against users already in BQ — moments ingested in the same
-    pipeline run are excluded (get_moments_for_passage uses exclude_user_id,
-    and BQ is written before this task starts so same-batch users will appear,
-    but passage-level deduplication in the compat agent handles exact pairs).
-    """
     logger.info(f"[Compat] starting batch for {user_id} on {book_id}/{passage_id}")
 
     try:
@@ -230,43 +221,54 @@ def _run_batch_compatibility(
         logger.info(f"[Compat] no other users on passage {passage_id} — skipping")
         return
 
-    logger.info(f"[Compat] running {len(other_moments)} comparisons for {user_id}")
+    logger.info(f"[Compat] running {len(other_moments)} comparisons for {user_id} (parallel)")
     compat_runs   = 0
     compat_errors = 0
 
-    for other in other_moments:
+    def _run_one(other):
         other_user_id = str(other["user_id"])
         other_text    = other.get("cleaned_interpretation", "")
         if not other_text:
-            continue
+            return None
+        return run_compatibility_agent(
+            user_a_id=user_id,
+            user_b_id=other_user_id,
+            book_id=book_id,
+            moment_a={"passage_id": passage_id, "cleaned_interpretation": interpretation},
+            moment_b={"passage_id": passage_id, "cleaned_interpretation": other_text},
+        )
 
-        try:
-            result = run_compatibility_agent(
-                user_a_id=user_id,
-                user_b_id=other_user_id,
-                book_id=book_id,
-                moment_a={"passage_id": passage_id, "cleaned_interpretation": interpretation},
-                moment_b={"passage_id": passage_id, "cleaned_interpretation": other_text},
-            )
-            if "error" in result:
-                logger.warning(f"[Compat] error {user_id}×{other_user_id}: {result['error']}")
+    MAX_WORKERS = 8   # tune this — Gemini rate limits will be the real ceiling
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = {executor.submit(_run_one, other): other for other in other_moments}
+
+        for future in as_completed(futures):
+            try:
+                result = future.result()
+                if result is None:
+                    pass
+                elif "error" in result:
+                    other = futures[future]
+                    logger.warning(f"[Compat] error for {other['user_id']}: {result['error']}")
+                    compat_errors += 1
+                else:
+                    compat_runs += 1
+                    logger.info(
+                        f"[Compat] ✓ {user_id}×{result.get('user_b')}: "
+                        f"{result.get('dominant_think')} ({result.get('confidence')})"
+                    )
+            except Exception as e:
+                logger.error(f"[Compat] exception in future: {e}")
                 compat_errors += 1
-            else:
-                compat_runs += 1
-                logger.info(f"[Compat] ✓ {user_id}×{other_user_id}: {result.get('dominant_think')} ({result.get('confidence')})")
-        except Exception as e:
-            logger.error(f"[Compat] exception {user_id}×{other_user_id}: {e}")
-            compat_errors += 1
 
     logger.info(f"[Compat] complete for {user_id} — {compat_runs} runs, {compat_errors} errors")
 
-    # Refit rankings for this user now that new compat runs are logged
     try:
         refit_user(user_id)
         logger.info(f"[Rankings] ✓ updated for {user_id}")
     except Exception as e:
         logger.error(f"[Rankings] error for {user_id}: {e}")
-
 
 # ── Background: rankings refit ────────────────────────────────────────────────
 

@@ -44,6 +44,8 @@ Env vars:
 
 import os
 import json
+import re
+from collections import defaultdict
 from datetime import datetime
 from typing import Optional
 
@@ -52,7 +54,7 @@ from google.cloud import bigquery
 # ── Config ────────────────────────────────────────────────────────────────────
 
 _PROJECT = os.environ.get("MOMENT_GCP_PROJECTID", os.environ.get("MOMENT_GCP_PROJECTID", "your-gcp-project"))
-_DATASET = os.environ.get("BQ_DATASET",  "new_moments_processed")
+_DATASET = os.environ.get("BQ_DATASET", "new_moments_processed")
 
 _TABLES = {
     "decompositions":     "decompositions",
@@ -81,6 +83,12 @@ def _table(name: str) -> str:
     return f"`{_PROJECT}.{_DATASET}.{bq_name}`"
 
 
+def _tbl_ref(name: str) -> str:
+    """Unquoted table reference for use with the Python client (insert_rows_json etc.)."""
+    bq_name = _TABLES.get(name, name)
+    return f"{_PROJECT}.{_DATASET}.{bq_name}"
+
+
 # ── Generic helpers ───────────────────────────────────────────────────────────
 
 def _run_query(sql: str, params: list = None) -> list[dict]:
@@ -91,8 +99,7 @@ def _run_query(sql: str, params: list = None) -> list[dict]:
 
 
 def _insert_rows(table_name: str, rows: list[dict]) -> None:
-    client = get_client()
-    # Use the raw table ref without backticks for the Python client
+    client  = get_client()
     bq_name = _TABLES.get(table_name, table_name)
     tbl_ref = f"{_PROJECT}.{_DATASET}.{bq_name}"
     errors  = client.insert_rows_json(tbl_ref, rows)
@@ -104,55 +111,83 @@ def _insert_row(table_name: str, row: dict) -> None:
     _insert_rows(table_name, [row])
 
 
+def _merge_rows(
+    bq_name: str,
+    rows: list[dict],
+    key_cols: list[str],
+    value_cols: list[str],
+) -> None:
+    """
+    Bulk MERGE upsert into a fully-qualified BQ table.
+
+    Each row is sent as a separate MERGE statement. BQ MERGE is DML and is
+    not subject to the streaming-buffer restriction on DELETE, making this
+    safe to call immediately after insert_rows_json writes to the same table.
+
+    key_cols   — columns used in the ON clause (must be scalar).
+    value_cols — columns updated when a row is matched.
+
+    All values are passed as query parameters (STRING cast in the ON clause
+    so integer/float keys compare correctly against STRING-typed columns).
+    Dicts / lists are serialised to JSON strings before binding.
+    """
+    client   = get_client()
+    tbl      = f"`{bq_name}`"
+    all_cols = key_cols + value_cols
+
+    for row in rows:
+        placeholders: list[str] = []
+        params: list = []
+
+        for col in all_cols:
+            val = row[col]
+            if isinstance(val, bool):
+                placeholders.append(f"@{col} AS {col}")
+                params.append(bigquery.ScalarQueryParameter(col, "BOOL", val))
+            elif isinstance(val, int):
+                placeholders.append(f"@{col} AS {col}")
+                params.append(bigquery.ScalarQueryParameter(col, "INT64", val))
+            elif isinstance(val, float):
+                placeholders.append(f"@{col} AS {col}")
+                params.append(bigquery.ScalarQueryParameter(col, "FLOAT64", val))
+            elif isinstance(val, str):
+                placeholders.append(f"@{col} AS {col}")
+                params.append(bigquery.ScalarQueryParameter(col, "STRING", val))
+            else:
+                placeholders.append(f"@{col} AS {col}")
+                params.append(bigquery.ScalarQueryParameter(col, "STRING", json.dumps(val)))
+
+        source_select = ", ".join(placeholders)
+        key_cond      = " AND ".join(
+            f"CAST(T.{c} AS STRING) = CAST(S.{c} AS STRING)" for c in key_cols
+        )
+        update_set  = ", ".join(f"T.{c} = S.{c}" for c in value_cols)
+        insert_cols = ", ".join(all_cols)
+        insert_vals = ", ".join(f"S.{c}" for c in all_cols)
+
+        sql = f"""
+        MERGE {tbl} T
+        USING (SELECT {source_select}) S
+        ON {key_cond}
+        WHEN MATCHED THEN
+          UPDATE SET {update_set}
+        WHEN NOT MATCHED THEN
+          INSERT ({insert_cols}) VALUES ({insert_vals})
+        """
+        client.query(
+            sql,
+            job_config=bigquery.QueryJobConfig(query_parameters=params),
+        ).result()
+
+
 def _upsert_row(table_name: str, row: dict, key_cols: list[str]) -> None:
     """
     MERGE upsert. Scalars become query parameters.
     Dicts/lists (RECORD columns) are kept as-is — BQ streaming handles nesting.
     For MERGE we serialise them as JSON strings; simple INSERT uses _insert_rows.
     """
-    client = get_client()
-    tbl    = _table(table_name)
-
-    all_cols   = list(row.keys())
-    value_cols = [c for c in all_cols if c not in key_cols]
-
-    placeholders: list[str] = []
-    params: list             = []
-
-    for col, val in row.items():
-        if isinstance(val, bool):
-            placeholders.append(f"@{col} AS {col}")
-            params.append(bigquery.ScalarQueryParameter(col, "BOOL", val))
-        elif isinstance(val, int):
-            placeholders.append(f"@{col} AS {col}")
-            params.append(bigquery.ScalarQueryParameter(col, "INT64", val))
-        elif isinstance(val, float):
-            placeholders.append(f"@{col} AS {col}")
-            params.append(bigquery.ScalarQueryParameter(col, "FLOAT64", val))
-        elif isinstance(val, str):
-            placeholders.append(f"@{col} AS {col}")
-            params.append(bigquery.ScalarQueryParameter(col, "STRING", val))
-        else:
-            # Nested dict/list → JSON string for the MERGE source
-            placeholders.append(f"@{col} AS {col}")
-            params.append(bigquery.ScalarQueryParameter(col, "STRING", json.dumps(val)))
-
-    source_select = ", ".join(placeholders)
-    key_cond      = " AND ".join(f"CAST(T.{c} AS STRING) = CAST(S.{c} AS STRING)" for c in key_cols)
-    update_set    = ", ".join(f"T.{c} = S.{c}" for c in value_cols)
-    insert_cols   = ", ".join(all_cols)
-    insert_vals   = ", ".join(f"S.{c}" for c in all_cols)
-
-    sql = f"""
-    MERGE {tbl} T
-    USING (SELECT {source_select}) S
-    ON {key_cond}
-    WHEN MATCHED THEN
-      UPDATE SET {update_set}
-    WHEN NOT MATCHED THEN
-      INSERT ({insert_cols}) VALUES ({insert_vals})
-    """
-    client.query(sql, job_config=bigquery.QueryJobConfig(query_parameters=params)).result()
+    value_cols = [c for c in row.keys() if c not in key_cols]
+    _merge_rows(_tbl_ref(table_name), [row], key_cols, value_cols)
 
 
 # ── Moments (read-only) ───────────────────────────────────────────────────────
@@ -223,8 +258,6 @@ def get_moment_text(user_id: str, passage_id: str, book_id: str) -> Optional[str
     return rows[0]["cleaned_interpretation"] if rows else None
 
 
-
-
 # ── Decompositions ────────────────────────────────────────────────────────────
 # Schema (our table):
 #   user_id STRING, passage_id STRING, book_id STRING,
@@ -259,7 +292,7 @@ def save_decomposition(result: dict) -> None:
     Only called when get_decomposition() returned nothing, so no deletion needed.
     subclaims is ARRAY<STRUCT> in BQ — pass as list of dicts directly.
     """
-    client = get_client()
+    client  = get_client()
     bq_name = _TABLES.get("decompositions", "decompositions")
     row = {
         "user_id":    str(result["user_id"]),
@@ -310,7 +343,7 @@ def save_scoring(user_a_id: str, user_b_id: str, passage_id: str, book_id: str, 
     Insert scoring result. scoring is a STRUCT in BQ so pass as dict directly.
     Only called when no cached scoring exists so no upsert needed.
     """
-    client = get_client()
+    client  = get_client()
     bq_name = _TABLES.get("scoring_runs", "scoring_runs")
     row = {
         "user_a_id":  str(user_a_id),
@@ -441,7 +474,7 @@ def get_comparisons(user_id: Optional[str] = None) -> list[dict]:
 
 def get_conversation_weights() -> dict[str, dict[str, float]]:
     """{ user_id: { run_id: engagement_score } }"""
-    rows    = _run_query(
+    rows = _run_query(
         f"SELECT user_id, match_run_id, engagement_score FROM {_table('conversations')}"
     )
     weights: dict[str, dict[str, float]] = {}
@@ -453,27 +486,12 @@ def get_conversation_weights() -> dict[str, dict[str, float]]:
 # ── Rankings ──────────────────────────────────────────────────────────────────
 
 def save_rankings(user_id: str, book_id: str, passage_id: str, ranked: list[dict]) -> None:
-    client = get_client()
-    bq_name = _TABLES.get("rankings", "rankings")
-    # Delete stale rows
-    client.query(
-        f"""
-        DELETE FROM `{_PROJECT}.{_DATASET}.{bq_name}`
-        WHERE CAST(user_id AS STRING) = @uid AND book_id = @bid AND passage_id = @pid
-        """,
-        job_config=bigquery.QueryJobConfig(query_parameters=[
-            bigquery.ScalarQueryParameter("uid", "STRING", str(user_id)),
-            bigquery.ScalarQueryParameter("bid", "STRING", book_id),
-            bigquery.ScalarQueryParameter("pid", "STRING", passage_id),
-        ]),
-    ).result()
-
     rows = []
     for pos, r in enumerate(ranked, 1):
         wu = r.get("weights_used", {})
         match_user = r.get("user_b") if str(r.get("user_a")) == str(user_id) else r.get("user_a")
         rows.append({
-            "user_id":       str(user_id),   # pass as string to avoid float precision loss
+            "user_id":       str(user_id),
             "book_id":       book_id,
             "passage_id":    passage_id,
             "rank_position": pos,
@@ -488,9 +506,12 @@ def save_rankings(user_id: str, book_id: str, passage_id: str, ranked: list[dict
             "n_comparisons": int(wu.get("n_comparisons", 0)),
             "generated_at":  datetime.utcnow().isoformat(),
         })
-    if rows:
-        _insert_rows("rankings", rows)
-    print(f"[BQ] {len(rows)} rankings saved: {user_id} / {book_id} / {passage_id}")
+    if not rows:
+        return
+    key_cols   = ["user_id", "book_id", "passage_id", "rank_position"]
+    value_cols = [c for c in rows[0] if c not in key_cols]
+    _merge_rows(_tbl_ref("rankings"), rows, key_cols, value_cols)
+    print(f"[BQ] {len(rows)} rankings upserted: {user_id} / {book_id} / {passage_id}")
 
 
 def get_rankings(user_id: str, book_id: Optional[str] = None, passage_id: Optional[str] = None) -> list[dict]:
@@ -503,8 +524,6 @@ def get_rankings(user_id: str, book_id: Optional[str] = None, passage_id: Option
         conditions.append("passage_id = @pid")
         params.append(bigquery.ScalarQueryParameter("pid", "STRING", passage_id))
     where = " AND ".join(conditions)
-    # Deduplicate using ROW_NUMBER — keeps only the most recent insert per rank slot
-    # This avoids DELETE on streaming buffer which BQ does not allow
     return _run_query(
         f"""
         SELECT * EXCEPT(rn) FROM (
@@ -523,9 +542,6 @@ def get_rankings(user_id: str, book_id: Optional[str] = None, passage_id: Option
 
 
 # ── Utilities (replaces tools.py entirely) ────────────────────────────────────
-
-import re
-import functools
 
 def extract_json(text: str) -> dict:
     """Robustly extract a JSON object from LLM output."""
@@ -592,36 +608,10 @@ def get_passage_results_for_user(user_id: str) -> list[dict]:
     )
 
 
-def _delete_with_retry(client, tbl_ref: str, user_id: str, max_wait: int = 90) -> None:
-    """
-    Delete all rows for user_id from a BQ table.
-    If the streaming buffer blocks DELETE, waits and retries up to max_wait seconds.
-    """
-    import time
-    interval = 10
-    elapsed  = 0
-    while elapsed <= max_wait:
-        try:
-            client.query(
-                f"DELETE FROM `{tbl_ref}` WHERE user_id = '{user_id}'"
-            ).result()
-            return  # success
-        except Exception as e:
-            if "streaming buffer" in str(e).lower():
-                print(f"[BQ] streaming buffer active for {tbl_ref}, retrying in {interval}s...")
-                time.sleep(interval)
-                elapsed += interval
-            else:
-                raise
-    # Gave up waiting — insert anyway, duplicates handled by ROW_NUMBER on read
-    print(f"[BQ] streaming buffer timeout for {tbl_ref}/{user_id}, inserting without delete")
-
-
 def save_book_level(rows: list[dict], anchor_user_id: str) -> None:
     """
-    Save book-level aggregates with rank_position per (anchor_user, book).
-    Stores one row per match per book for the anchor user.
-    rank_position = rank within that book by confidence desc.
+    Upsert book-level aggregates using MERGE on (user_id, match_user, book_id).
+    Replaces DELETE + insert to avoid streaming buffer conflicts.
 
     BQ schema: user_id STRING, match_user STRING, book_id STRING,
       rank_position INT64, think_R/C/D FLOAT, feel_R/C/D FLOAT,
@@ -630,38 +620,34 @@ def save_book_level(rows: list[dict], anchor_user_id: str) -> None:
     """
     if not rows:
         return
-    client  = get_client()
-    bq_name = "book_compatibility"
-    tbl_ref = f"{_PROJECT}.{_DATASET}.{bq_name}"
 
-    from collections import defaultdict
-    by_book = defaultdict(list)
+    by_book: dict[str, list] = defaultdict(list)
     for row in rows:
         by_book[row["book_id"]].append(row)
 
-    rows_to_insert = []
+    rows_to_upsert = []
     for book_id, book_rows in by_book.items():
         book_rows_sorted = sorted(book_rows, key=lambda r: r.get("confidence", 0.0), reverse=True)
         for pos, row in enumerate(book_rows_sorted, 1):
             match_user = row["user_b"] if row["user_a"] == anchor_user_id else row["user_a"]
-            rows_to_insert.append({
+            rows_to_upsert.append({
                 **row,
                 "user_id":       anchor_user_id,
                 "match_user":    match_user,
                 "rank_position": pos,
             })
 
-    _delete_with_retry(client, tbl_ref, anchor_user_id)
-    errors = client.insert_rows_json(tbl_ref, rows_to_insert)
-    if errors:
-        raise RuntimeError(f"BQ insert error into book_compatibility: {errors}")
-    print(f"[BQ] {len(rows_to_insert)} book-level rows saved for {anchor_user_id}")
+    bq_name    = f"{_PROJECT}.{_DATASET}.book_compatibility"
+    key_cols   = ["user_id", "match_user", "book_id"]
+    value_cols = [c for c in rows_to_upsert[0] if c not in key_cols]
+    _merge_rows(bq_name, rows_to_upsert, key_cols, value_cols)
+    print(f"[BQ] {len(rows_to_upsert)} book-level rows upserted for {anchor_user_id}")
 
 
 def save_profile_level(rows: list[dict], anchor_user_id: str) -> None:
     """
-    Save profile-level aggregates with rank_position for anchor user.
-    Ranks all matches by confidence desc across all books.
+    Upsert profile-level aggregates using MERGE on (user_id, match_user).
+    Replaces DELETE + insert to avoid streaming buffer conflicts.
 
     BQ schema: user_id STRING, match_user STRING, rank_position INT64,
       think_R/C/D FLOAT, feel_R/C/D FLOAT, dominant_think/feel STRING,
@@ -670,23 +656,20 @@ def save_profile_level(rows: list[dict], anchor_user_id: str) -> None:
     """
     if not rows:
         return
-    client  = get_client()
-    bq_name = "profile_compatibility"
-    tbl_ref = f"{_PROJECT}.{_DATASET}.{bq_name}"
 
     rows_sorted = sorted(rows, key=lambda r: r.get("confidence", 0.0), reverse=True)
-    rows_to_insert = []
+    rows_to_upsert = []
     for pos, row in enumerate(rows_sorted, 1):
         match_user = row["user_b"] if row["user_a"] == anchor_user_id else row["user_a"]
-        rows_to_insert.append({
+        rows_to_upsert.append({
             **row,
             "user_id":       anchor_user_id,
             "match_user":    match_user,
             "rank_position": pos,
         })
 
-    _delete_with_retry(client, tbl_ref, anchor_user_id)
-    errors = client.insert_rows_json(tbl_ref, rows_to_insert)
-    if errors:
-        raise RuntimeError(f"BQ insert error into profile_level_compatibility: {errors}")
-    print(f"[BQ] {len(rows_to_insert)} profile-level rows saved for {anchor_user_id}")
+    bq_name    = f"{_PROJECT}.{_DATASET}.profile_compatibility"
+    key_cols   = ["user_id", "match_user"]
+    value_cols = [c for c in rows_to_upsert[0] if c not in key_cols]
+    _merge_rows(bq_name, rows_to_upsert, key_cols, value_cols)
+    print(f"[BQ] {len(rows_to_upsert)} profile-level rows upserted for {anchor_user_id}")

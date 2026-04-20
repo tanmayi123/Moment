@@ -11,27 +11,118 @@ This repository contains the **full MLOps pipeline** across four integrated comp
 
 ## Table of Contents
 
-1. [Repository Structure](#1-repository-structure)
-2. [Dataset Overview](#2-dataset-overview)
-3. [System Architecture](#3-system-architecture)
-4. [Environment Setup](#4-environment-setup)
-5. [Data Pipeline (Airflow)](#5-data-pipeline-airflow)
-6. [Compatibility Model](#6-compatibility-model)
-7. [FastAPI Production Pipeline](#7-fastapi-production-pipeline)
-8. [Monitoring & Alerting](#8-monitoring--alerting)
-9. [CI/CD Pipeline](#9-cicd-pipeline)
-10. [Experiment Tracking](#10-experiment-tracking)
-11. [Model Validation & Bias Detection](#11-model-validation--bias-detection)
-12. [Rankings — Bradley-Terry Model](#12-rankings--bradley-terry-model)
-13. [Containerization](#13-containerization)
-14. [Data Versioning with DVC](#14-data-versioning-with-dvc)
-15. [Testing](#15-testing)
-16. [Sensitivity Analysis](#16-sensitivity-analysis)
-17. [Evaluation Criteria Coverage](#17-evaluation-criteria-coverage)
+1. [Quick Start — Clone & Run](#1-quick-start--clone--run)
+2. [Repository Structure](#2-repository-structure)
+3. [Dataset Overview](#3-dataset-overview)
+4. [System Architecture](#4-system-architecture)
+5. [Environment Setup](#5-environment-setup)
+6. [Data Pipeline (Airflow)](#6-data-pipeline-airflow)
+6. [Data Pipeline (Airflow)](#6-data-pipeline-airflow)
+7. [Compatibility Model](#7-compatibility-model)
+8. [FastAPI Production Pipeline](#8-fastapi-production-pipeline)
+9. [Monitoring & Alerting](#9-monitoring--alerting)
+10. [CI/CD Pipeline](#10-cicd-pipeline)
+11. [Experiment Tracking](#11-experiment-tracking)
+12. [Model Validation & Bias Detection](#12-model-validation--bias-detection)
+13. [Rankings — Bradley-Terry Model](#13-rankings--bradley-terry-model)
+14. [Containerization](#14-containerization)
+15. [Data Versioning with DVC](#15-data-versioning-with-dvc)
+16. [Testing](#16-testing)
+17. [Sensitivity Analysis](#17-sensitivity-analysis)
+18. [Data Drift — Current Status](#18-data-drift--current-status)
+19. [Evaluation Criteria Coverage](#19-evaluation-criteria-coverage)
 
 ---
 
-## 1. Repository Structure
+## 1. Quick Start — Clone & Run
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/jyothssena/Moment.git
+cd Moment
+```
+
+### Option A — Run the FastAPI Production Pipeline
+
+This is the main pipeline used in production. It requires GCP credentials and a running Cloud SQL instance.
+
+```bash
+cd fastapi_pipeline
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Set environment variables (copy and fill in your values):
+
+```bash
+export GEMINI_API_KEY_MOMENT=<your-gemini-api-key>
+export GOOGLE_CLOUD_PROJECT=moment-486719
+export INSTANCE_CONNECTION_NAME=moment-486719:us-central1:moment-db
+export CLOUDSQL_DB=momento
+export CLOUDSQL_USER=momento_admin
+export CLOUDSQL_PASS=<your-db-password>
+export BQ_DATASET=new_moments_processed
+```
+
+Start the server:
+
+```bash
+uvicorn main:app --reload --port 8080
+```
+
+Trigger the pipeline:
+
+```bash
+curl -X POST http://localhost:8080/pipeline/run
+```
+
+Interactive API docs at `http://localhost:8080/docs`.
+
+---
+
+### Option B — Run the Airflow Data Pipeline (Local)
+
+This runs the preprocessing + validation + BQ upload pipeline locally using Docker.
+
+```bash
+# From the repo root
+docker-compose up --build
+```
+
+Open `http://localhost:8080` → Airflow UI → trigger `moment_team_pipeline_MULTILEVEL`.
+
+---
+
+### Option C — Run the Compatibility Model Offline (No GCP)
+
+To test the Gemini agents against the existing synthetic dataset without any GCP services:
+
+```bash
+# From the repo root
+pip install -r requirements.txt
+export GEMINI_API_KEY_MOMENT=<your-gemini-api-key>
+
+# Replay existing results into MLflow (no Gemini calls)
+python experiment_tracking/run_experiment.py --replay
+
+# Run live against the synthetic dataset
+python experiment_tracking/run_experiment.py
+```
+
+---
+
+### Option D — Run Tests
+
+```bash
+pip install pytest
+pytest data_pipeline/tests/ -v
+```
+
+---
+
+## 2. Repository Structure
 
 ```
 Moment/
@@ -116,7 +207,7 @@ Moment/
 
 ---
 
-## 2. Dataset Overview
+## 3. Dataset Overview
 
 ### Why Synthetic Data?
 
@@ -149,7 +240,7 @@ Each interpretation record contains: `user_id`, `book_id`, `passage_id`, `interp
 
 ---
 
-## 3. System Architecture
+## 4. System Architecture
 
 The system has two parallel pipelines that feed into each other, plus a monitoring layer:
 
@@ -185,7 +276,7 @@ The system has two parallel pipelines that feed into each other, plus a monitori
 
 ---
 
-## 4. Environment Setup
+## 5. Environment Setup
 
 ### Prerequisites
 
@@ -237,7 +328,7 @@ GCS service account JSON should be placed at `credentials/gcs-service-account.js
 
 ---
 
-## 5. Data Pipeline (Airflow)
+## 6. Data Pipeline (Airflow)
 
 **Location:** `data_pipeline/`
 
@@ -294,7 +385,7 @@ The parallel execution of `validation` and `schema_stats` after `preprocessing` 
 
 ---
 
-## 6. Compatibility Model
+## 7. Compatibility Model
 
 **Location:** `fastapi_pipeline/` (production) · `models/` (reference / offline)
 
@@ -434,7 +525,7 @@ response = _gemini_client.models.generate_content(
 
 ---
 
-## 7. FastAPI Production Pipeline
+## 8. FastAPI Production Pipeline
 
 **Location:** `fastapi_pipeline/main.py`
 
@@ -533,7 +624,7 @@ If no moments were created today, the pipeline returns `{"status": "skipped", "r
 
 ---
 
-## 8. Monitoring & Alerting
+## 9. Monitoring & Alerting
 
 **Location:** `fastapi_pipeline/metrics.py` · `monitoring/`
 
@@ -632,7 +723,7 @@ In production, this background task should be replaced with a Cloud Tasks or Pub
 
 ---
 
-## 9. CI/CD Pipeline
+## 10. CI/CD Pipeline
 
 **Files:** `.github/workflows/cicd.yml` · `.github/workflows/deploy.yml`
 
@@ -707,7 +798,7 @@ Slack notifications are sent for both success (`notify_deployment_success(sha, m
 
 ---
 
-## 10. Experiment Tracking
+## 11. Experiment Tracking
 
 **Tool:** MLflow · **Location:** `experiment_tracking/`
 
@@ -760,7 +851,7 @@ mlflow ui --port 5000
 
 ---
 
-## 11. Model Validation & Bias Detection
+## 12. Model Validation & Bias Detection
 
 **Location:** `cicd_pipeline/`
 
@@ -801,7 +892,7 @@ The final bias-free dataset at `data/raw/csvs_jsons/all_interpretations_450_FINA
 
 ---
 
-## 12. Rankings — Bradley-Terry Model
+## 13. Rankings — Bradley-Terry Model
 
 **Location:** `fastapi_pipeline/run_rankings.py`
 
@@ -879,7 +970,7 @@ Returns top-k matches sorted by `blend_score`. Refits BT synchronously on every 
 
 ---
 
-## 13. Containerization
+## 14. Containerization
 
 **File:** `fastapi_pipeline/Dockerfile`
 
@@ -906,7 +997,7 @@ docker-compose up --build
 
 ---
 
-## 14. Data Versioning with DVC
+## 15. Data Versioning with DVC
 
 **File:** `dvc.yaml`
 
@@ -930,7 +1021,7 @@ The `dvc.yaml` file defines pipeline stages with explicit dependencies (inputs) 
 
 ---
 
-## 15. Testing
+## 16. Testing
 
 **Locations:** `data_pipeline/tests/` · `tests/`
 
@@ -964,7 +1055,7 @@ The Airflow tests DAG (`data_pipeline/airflow/dags/tests_dag.py`) runs the pytes
 
 ---
 
-## 16. Sensitivity Analysis
+## 17. Sensitivity Analysis
 
 **File:** `model_sensitivity_analysis.py`
 
@@ -984,7 +1075,19 @@ Sensitivity analysis examines how much each component of the compatibility pipel
 
 ---
 
-## 17. Evaluation Criteria Coverage
+## 18. Data Drift — Current Status
+
+> **Note:** Full data drift monitoring is instrumented but not yet actively used in production decision-making. This is an intentional limitation of the current stage of the project.
+
+The monitoring infrastructure in `metrics.py` and the Grafana dashboard already track per-run distribution signals — `valid_ratio`, `word_count_mean/p50/p95`, `quality_score_mean/p10`, and `readability_mean` — specifically designed to detect data drift over time. However, since the current dataset is **entirely synthetic** (450 interpretations generated from 50 character personas), these signals do not exhibit meaningful drift. Every pipeline run sees statistically similar data because it comes from the same controlled generation process.
+
+Meaningful data drift monitoring will become active once the platform has a real user base. At that point, shifts in these metrics will reflect genuine changes in how users write — for example, interpretations getting shorter over time, quality scores dropping as the user base grows, or the valid_ratio falling if users start writing in non-English or testing the system with low-quality inputs. When that happens, sustained anomalies in any of these gauges will fire Alertmanager alerts, which route to the `/admin/retrain-trigger` endpoint and queue a full pipeline refit.
+
+For now, the drift signals are collected and visible in the Grafana dashboard as a baseline record, so that when real user data begins flowing, there will be a historical baseline to compare against from day one.
+
+---
+
+## 19. Evaluation Criteria Coverage
 
 ### Data Pipeline
 

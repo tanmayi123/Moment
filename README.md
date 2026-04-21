@@ -3,6 +3,11 @@
 > **Read. Moments. Worth. Sharing.**
 > IE7374 · MLOps · Group 23 · Northeastern University
 
+> ⚠️ Note: This repository is a fork of the original group project repository. It has been forked to showcase my contributions and to continue independent development without affecting the original project.
+
+> 🔗 Original Repository: [View Main Project Repository](https://github.com/jyothssena/Moment)
+
+
 Moment is a private reading platform that uses machine learning to match intellectually compatible readers. Users capture book passages as visual "moments," write personal reflections, and are quietly matched with readers who think and feel similarly about literature — without performative social media posting.
 
 This repository contains the **full MLOps pipeline** across four integrated components: a data pipeline (Airflow + TFDV), an agent-based compatibility model (Gemini 2.5 Flash), a FastAPI production pipeline (Cloud SQL → BigQuery → Cloud Run), and a monitoring stack (Google Cloud Monitoring + Grafana).
